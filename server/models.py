@@ -38,6 +38,10 @@ class Item (db.Model, SerializerMixin):
     serialize_rules = ('-bakery.items', '-reviews.items', '-carts.items')
 
     #validation
+    @validates('name')
+    def validates_name(self, key, name):
+        if not name:
+            raise ValueError('name cannot be empty!')
 
 
 class Customer (db.Model, SerializerMixin):
@@ -46,7 +50,7 @@ class Customer (db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     username = db.Column(db.String, unique = True)
-    email = db.Column(db.String)
+    email = db.Column(db.String, unique = True)
     password = db.Column(db.String)
 
     # foreign keys
@@ -60,6 +64,39 @@ class Customer (db.Model, SerializerMixin):
 
     # serialization
     serialize_rules = ('-reviews.customer', '-carts.customer')
+
+    #validations
+    @validates('name')
+    def validates_name(self, key, name):
+        if not name:
+            raise ValueError('name cannot be empty!')
+    
+    @validates('username')
+    def validates_username(self, key, username):
+        if not username:
+            raise ValueError('username cannot be empty!')
+        
+    @validates('email')
+    def validates_email(self, key, email):
+        if not email or '.com' not in email or '@' not in email :
+            raise ValueError('Invalid email')
+        
+    def set_password(self, password):
+        self.password_hash = bcrypt.generate_password(password.decode('utf-8'))
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password_hash, password)
+        
+    @validates('password')
+    def validates_password(self, key, password):
+        if len(password) < 8:
+            raise ValueError("Make sure your password is at lest 8 letters")
+        elif re.search('[0-9]',password) is None:
+            raise ValueError("Make sure your password has a number in it")
+        elif re.search('[A-Z]',password) is None: 
+            raise ValueError("Make sure your password has a capital letter in it")
+        else:
+            return password
 
 
 class Review (db.Model, SerializerMixin):
