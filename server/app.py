@@ -3,7 +3,7 @@
 # Standard library imports
 from flask import make_response, request
 from models import Item, Cart, Customer, Bakery, Review
-from config import db, app, bcrypt
+from config import app, db
 
 # Remote library imports
 from flask import request
@@ -23,7 +23,7 @@ def index():
 def items():
     if request.method == 'GET':
         items = Item.query.all()
-        resp = [item.to_dict() for item in items]
+        resp = [item.to_dict(rules=('-bakery', '-reviews', '-carts', '-bakery_id')) for item in items]
         return make_response (resp, 200)
     
 #----------------------------------------
@@ -36,7 +36,7 @@ def item_by_id(id):
 
 # ---------------- GET -----------------------
         if request.method == 'GET':
-            resp = make_response(item_by_id.to_dict(), 200)
+            resp = make_response(item_by_id.to_dict(rules=('-bakery', '-reviews', '-carts')), 200)
 
 #----------------- POST-----------------------
         elif request.method == 'POST':
@@ -87,7 +87,8 @@ def customers():
     customers = Customer.query.all()
 # ---------------- GET -----------------------
     if request.method == 'GET':
-        return make_response([customer.to_dict(rules=('-carts', )) for customer in customers], 200)
+        return make_response([customer.to_dict(rules=('-carts', 
+            '-reviews', '-password_hash')) for customer in customers], 200)
     
 # ---------------- POST -----------------------
     elif request.method == 'POST':
@@ -140,6 +141,45 @@ def customer_by_id(id):
     else:
         resp = make_response({"error" : "No Customer Found!"}, 404)    
     return resp
+
+#----------------------------------------
+# ALL REVIEWS
+#----------------------------------------
+
+@app.route('/reviews', methods=['GET', 'POST'])
+def reviews():
+    reviews = Review.query.all()
+# ---------------- GET -----------------------
+    if request.method == 'GET':
+        return make_response([review.to_dict(rules=('-customer', '-item')) for review in reviews], 200)
+
+
+
+#----------------------------------------
+# ALL CARTS
+#----------------------------------------
+
+@app.route('/carts', methods=['GET', 'POST'])
+def carts():
+    carts = Cart.query.all()
+# ---------------- GET -----------------------
+    if request.method == 'GET':
+        return make_response([cart.to_dict(rules = ('-customer.reviews', '-customer.password_hash')) for cart in carts], 200)
+    
+
+#----------------------------------------
+# BAKERY BY ID
+#----------------------------------------
+@app.route('/bakery/<int:id>', methods=['GET'])
+def bakery_by_id(id):
+    bakery = Bakery.query.filter_by(id = id).first()
+    if bakery:
+
+# ---------------- GET -----------------------
+        if request.method == 'GET':
+            resp = make_response(bakery.to_dict(rules = ('-items',)), 200)
+    return resp
+
 
 
 if __name__ == '__main__':

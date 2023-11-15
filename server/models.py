@@ -4,11 +4,8 @@ from sqlalchemy.orm import validates
 import re
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-db = SQLAlchemy(metadata=metadata)
+from sqlalchemy.ext.hybrid import hybrid_property
+from config import bcrypt, db
 
 # Models go here!
 
@@ -28,8 +25,8 @@ class Item (db.Model, SerializerMixin):
 
     # relationships
     bakery = db.relationship('Bakery', back_populates = 'items')
-    reviews = db.relationship('Review', back_populates = 'items', cascade = 'all, delete-orphan')
-    carts = db.relationship('Item', back_populates= 'items', cascade = 'all, delete-orphan')
+    reviews = db.relationship('Review', back_populates = 'item', cascade = 'all, delete-orphan')
+    carts = db.relationship('Cart', back_populates= 'items', cascade = 'all, delete-orphan')
 
     # association proxy
     customers = association_proxy('Cart', 'customer')
@@ -42,6 +39,7 @@ class Item (db.Model, SerializerMixin):
     def validates_name(self, key, name):
         if not name:
             raise ValueError('name cannot be empty!')
+        return name
 
 
 class Customer (db.Model, SerializerMixin):
@@ -51,7 +49,7 @@ class Customer (db.Model, SerializerMixin):
     name = db.Column(db.String)
     username = db.Column(db.String, unique = True)
     email = db.Column(db.String, unique = True)
-    password = db.Column(db.String)
+    password_hash = db.Column(db.String, nullable = False)
 
     # foreign keys
     
@@ -70,33 +68,37 @@ class Customer (db.Model, SerializerMixin):
     def validates_name(self, key, name):
         if not name:
             raise ValueError('name cannot be empty!')
+        return name
     
     @validates('username')
     def validates_username(self, key, username):
         if not username:
             raise ValueError('username cannot be empty!')
+        return username
         
     @validates('email')
     def validates_email(self, key, email):
         if not email or '.com' not in email or '@' not in email :
             raise ValueError('Invalid email')
+        return email
         
     def set_password(self, password):
-        self.password_hash = bcrypt.generate_password(password.decode('utf-8'))
+        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
         
-    @validates('password')
-    def validates_password(self, key, password):
-        if len(password) < 8:
-            raise ValueError("Make sure your password is at lest 8 letters")
-        elif re.search('[0-9]',password) is None:
-            raise ValueError("Make sure your password has a number in it")
-        elif re.search('[A-Z]',password) is None: 
-            raise ValueError("Make sure your password has a capital letter in it")
-        else:
-            return password
+        # move to front-end
+    # @validates('password_hash')
+    # def validates_password_hash(self, key, password_hash):
+    #     if len(password_hash) < 8:
+    #         raise ValueError("Make sure your password is at lest 8 letters")
+    #     elif re.search('[0-9]',password_hash) is None:
+    #         raise ValueError("Make sure your password has a number in it")
+    #     elif re.search('[A-Z]',password_hash) is None: 
+    #         raise ValueError("Make sure your password has a capital letter in it")
+    #     else:
+    #         return password_hash
 
 
 class Review (db.Model, SerializerMixin):
@@ -130,12 +132,12 @@ class Cart (db.Model, SerializerMixin):
 
     # relationships
     customer = db.relationship('Customer', back_populates = 'carts')
-    item = db.relationship('Item', back_populates = 'carts')
+    items = db.relationship('Item', back_populates = 'carts')
 
     # association proxy
 
     # serialization
-    serialize_rules = ('-customer, carts', '-item.carts')
+    serialize_rules = ('-customer.carts', '-item.carts')
 
 
 class Bakery (db.Model, SerializerMixin):

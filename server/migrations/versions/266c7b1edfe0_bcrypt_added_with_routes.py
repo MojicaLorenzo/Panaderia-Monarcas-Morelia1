@@ -1,8 +1,8 @@
-"""empty message
+"""bcrypt added with routes
 
-Revision ID: b36635953713
+Revision ID: 266c7b1edfe0
 Revises: 
-Create Date: 2023-11-14 12:15:14.379477
+Create Date: 2023-11-14 16:13:11.659410
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b36635953713'
+revision = '266c7b1edfe0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,8 +29,9 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=True),
     sa.Column('username', sa.String(), nullable=True),
     sa.Column('email', sa.String(), nullable=True),
-    sa.Column('password', sa.String(), nullable=True),
+    sa.Column('password_hash', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
     op.create_table('items',
