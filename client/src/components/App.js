@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./HomePage";
 import Items from "./Items";
-// import I
+import SignUpForm from "./SignUpForm";
 
 function App() {
 
@@ -38,6 +38,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <HomePage/>
+            </Route>
+            <Route exact path='/signup'>
+              <SignUpForm/>
             </Route>
             <Route exact path="/items">
               <Items itemsArr={items}/>

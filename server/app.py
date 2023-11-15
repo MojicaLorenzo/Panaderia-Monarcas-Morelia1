@@ -94,15 +94,15 @@ def customers():
     elif request.method == 'POST':
         form_data = request.get_json()
         try:
-            new_customer_obj = Customer(
+            new_customer = Customer(
                 name = form_data['name'],
                 username = form_data['username'],
                 email = form_data['email'],
-                password = form_data['password'],
+                password_hash = form_data['password'],
             )
-            db.session.add(new_customer_obj)
+            db.session.add(new_customer)
             db.session.commit()
-            resp = make_response(new_customer_obj.to_dict(), 201)
+            resp = make_response(new_customer.to_dict(), 201)
             return resp
         except ValueError:
             resp = make_response({ "errors": ["Validation Errors!"]}, 400)
