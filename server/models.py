@@ -49,7 +49,7 @@ class Customer (db.Model, SerializerMixin):
     name = db.Column(db.String)
     username = db.Column(db.String, unique = True)
     email = db.Column(db.String, unique = True)
-    password_hash = db.Column(db.String, nullable = False)
+    _password_hash = db.Column(db.String)
 
     # foreign keys
     
@@ -81,14 +81,37 @@ class Customer (db.Model, SerializerMixin):
         if not email or '.com' not in email or '@' not in email :
             raise ValueError('Invalid email')
         return email
-        
-    def set_password(self, password):
-        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+    
 
-    def check_password(self, password):
-        return bcrypt.check_password_hash(self.password_hash, password)
-        
-        # move to front-end
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError("Don't have permission to access the password")
+
+    @password_hash.setter
+    def password_hash(self, password):
+        new_password_hash = bcrypt.generate_password_hash(password.encode('utf-8'))
+        self._password_hash = new_password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8'))
+    
+    # @hybrid_property
+    # def password_hash(self):
+    #     raise AttributeError("Don't have permission to access the password")
+
+    # @password_hash.setter
+    # def password_hash(self, password):
+    #     new_hashed_password = bcrypt.generate_password_hash(password.encode('utf-8'))
+    #     self._password_hash = new_hashed_password.decode('utf-8')
+
+    # def authenticate(self, password):
+    #     return bcrypt.check_password_hash(self.password_hash, password.encode('utf-8'))
+    
+
+
+
+    # move to front-end
     # @validates('password_hash')
     # def validates_password_hash(self, key, password_hash):
     #     if len(password_hash) < 8:

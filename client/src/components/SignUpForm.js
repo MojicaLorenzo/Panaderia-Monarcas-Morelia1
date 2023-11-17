@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 function SignUpForm(){
+    const history = useHistory()
 
     const [showPassword, setShowPassword] = useState(false);
     const [newCustomer, setNewCustomer] = useState({
@@ -43,10 +45,11 @@ function SignUpForm(){
                 e.target.password.value = ""
                 // You can reset the form or perform other actions here
                 setShowPassword(false);
-                alert('User added successfully!')
+                history.push("/")
+                alert(`Welcome, happy to have you ${newCustomer.name}`)
             } else {
                 console.error('Failed to add user');
-                alert('Password must contain a special character and number!\n\n Email must be proper format Username must be unique!')
+                alert('Try Again !')
             }
         } catch (error) {
             console.error('Error:', error);
@@ -78,6 +81,16 @@ function SignUpForm(){
                             placeholder='Username'
                             value={newCustomer.username}
                             onChange={handleChange} />
+                        
+                        <br/>
+                        Email: <input
+                            className="reginput"
+                            type="text"
+                            name="email"
+                            placeholder='Email'
+                            value={newCustomer.email}
+                            onChange={handleChange} />
+                        <br/> 
                         Password: <input
                             className="reginput"
                             type={showPassword ? "text" : "password"}
@@ -88,15 +101,6 @@ function SignUpForm(){
                         />
                         <br/>
                         <button type='button' id="showPasswrd" onClick={() => setShowPassword(!showPassword)}>show password</button>
-                        <br/>
-                        Email: <input
-                            className="reginput"
-                            type="text"
-                            name="email"
-                            placeholder='Email'
-                            value={newCustomer.email}
-                            onChange={handleChange} />
-                        <br/> 
                         <input id="register" type="submit" name="Register" ></input>
                     </form>
                 </div>

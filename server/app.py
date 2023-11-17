@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Standard library imports
-from flask import make_response, request
+from flask import make_response, request, session
 from models import Item, Cart, Customer, Bakery, Review
 from config import app, db
 
@@ -19,6 +19,65 @@ from flask_restful import Resource
 def index():
     return '<h1>Project Server</h1>'
 
+# ----------------------------------------
+# customer/user SESSION, LOGIN, AND LOGOUT
+# ----------------------------------------
+
+@app.route('/check_session', methods = ['GET'])
+def check_session():
+    # check current session
+    customer_id = session['customer_id']
+
+    customer = Customer.query.filter(Customer.id == customer_id).first()
+
+    if customer:
+        resp = make_response( customer.to_dict(), 200)
+        return resp
+    
+    else:
+        resp = make_response({}, 404)
+        return resp
+
+@app.route('/login', methods = ['POST'])
+def login():
+    
+    form_data = request.get_json()
+
+    username = form_data['username']
+    password = form_data['password']
+
+    customer = Customer.query.filter(Customer.username == username).first()
+
+    if customer:
+        # authenticate customer
+        is_authenticate = customer.authenticate(password)
+
+        if is_authenticate:
+            session['customer.id'] = customer.id
+
+            resp = make_response(customer.to_dict(), 201)
+            return resp
+        else:
+            resp = make_response({"error" : "customer cannot log in"})
+        
+    else:
+        resp = make_response({"error": "customer not found"}, 404)
+        # print(session)
+        return resp
+
+@app.route('/logout', methods = ['DELETE'])
+def logout():
+    # remove session
+    session['customer_id'] = None
+
+    resp = make_response({}, 204)
+    # print(session)
+    return resp
+
+# ----------------------------------------
+# customer/user SESSION, LOGIN, AND LOGOUT ^^^^
+# ----------------------------------------
+
 @app.route('/items', methods = ['GET'])
 def items():
     if request.method == 'GET':
@@ -26,9 +85,9 @@ def items():
         resp = [item.to_dict(rules=('-bakery', '-reviews', '-carts', '-bakery_id')) for item in items]
         return make_response (resp, 200)
     
-#----------------------------------------
+# ----------------------------------------
 # ITEMS BY ID
-#----------------------------------------
+# ----------------------------------------
 @app.route('/items/<int:id>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def item_by_id(id):
     item_by_id = Item.query.filter_by(id = id).first()
@@ -93,19 +152,30 @@ def customers():
 # ---------------- POST -----------------------
     elif request.method == 'POST':
         form_data = request.get_json()
+
+        username = form_data['username']
+        password = form_data['password']
         try:
             new_customer = Customer(
                 name = form_data['name'],
-                username = form_data['username'],
-                email = form_data['email'],
-                password_hash = form_data['password'],
+                username = username,
+                email = form_data['email'],     
+                # _password_hash = form_data['password'],
+                # comment out this password
             )
+            # uncomment this password
+            new_customer.password_hash = password
+            
+
             db.session.add(new_customer)
             db.session.commit()
+            # sets signed in customer to session
+            # session['customer_id']= new_customer.id
+
             resp = make_response(new_customer.to_dict(), 201)
             return resp
         except ValueError:
-            resp = make_response({ "errors": ["Validation Errors!"]}, 400)
+            resp = make_response({ "errors": ["Create User!"]}, 400)
     return resp
 
 #----------------------------------------

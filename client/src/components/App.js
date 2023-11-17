@@ -3,6 +3,8 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./HomePage";
 import Items from "./Items";
 import SignUpForm from "./SignUpForm";
+import LoginForm from "./LoginForm";
+import Login from "./Login";
 
 function App() {
 
@@ -11,6 +13,12 @@ function App() {
     const [reviews, setReviews] = useState([])
     const [customers, setCustomers] = useState([])
     // const [carts, setCarts] = useState([])
+    const [loggedIn, setLoggedIn] = useState(false)
+
+
+    const [customer, setCustomer] = useState(null);
+
+    
 
     useEffect(() => {
       fetch('/items')
@@ -30,11 +38,23 @@ function App() {
           .then(setReviews);
     }, [])
 
+    // console.log(customers)
+
+    useEffect(() => {
+          // auto-login
+          fetch("/check_session").then((resp) => {
+            if (resp.ok) {
+              resp.json().then((customer) => setCustomer(customer));
+            }
+          });
+        }, []);
+
+        // if (!user) return <Login onLogin={setUser} loggedIn={loggedIn}/>;
 
 
 
   return (
-        <BrowserRouter>
+        
           <Switch>
             <Route exact path="/">
               <HomePage/>
@@ -42,11 +62,17 @@ function App() {
             <Route exact path='/signup'>
               <SignUpForm/>
             </Route>
+            <Route exact path='/loginform'>
+              <LoginForm loggedIn={loggedIn} onLogin={setCustomer} setLoggedIn={setLoggedIn}/>
+            </Route>
+            <Route exact path='/login'>
+              <Login loggedIn={loggedIn} onLogin={setCustomer}/>
+            </Route>
             <Route exact path="/items">
               <Items itemsArr={items}/>
             </Route>
           </Switch>
-        </BrowserRouter>
+    
   )
 }
 
