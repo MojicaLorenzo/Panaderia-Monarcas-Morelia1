@@ -25,12 +25,6 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
     }, [])
 
     console.log(customerData.id)
-    
-    // useEffect(() => {
-    //     fetch(`customers/${loggedInID}`)
-    //         .then((resp) => resp.json())
-    //         .then(setCustomerData)
-    // }, [loggedInID])
 
     const updateInfo = async (e) => {
         e.preventDefault()
@@ -71,6 +65,25 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
             console.error('Error updating customer information', error);
         }
     };
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`customers/${customerData.id}`,{
+                method: "DELETE"
+            });
+    
+            if (response.ok) {
+            console.log("Customer deleted successfully!");
+            alert("Account deleted successfully!");
+            // setLoggedIn(false);
+            history.push("/login");
+        } else {
+            console.error("Failed to delete customer");
+            alert("Failed to delete customer");
+        }
+        } catch (error) {
+            console.error("Error deleting customer", error);
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -106,37 +119,13 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
                     <button className="login" type='button' id="showPasswrd" onClick={() => setShowPassword(!showPassword)}>show password</button>
                     
                     <button className="login" id="register" type="submit" name="Register" value="submit" >Submit edit</button>
+                    <button className="login" id="deleteAccount" type="button" onClick={handleDelete}>Delete Account</button>
                 </form>
             </div>
             
     )
 }
 
+
+
 export default AccountForm
-
-
-
-{/* <div>
-                <h2 className="login" align = 'center'>Edit Account</h2>
-                <form id="regform" name="form" onSubmit={updateInfo}>
-                    <br />
-                    Username:<input
-                        className="reginput"
-                        type="text"
-                        name="username"
-                        placeholder={"username"}
-                        value={formData.username}
-                        onChange={handleChange} />
-                    Password: <input
-                        className="reginput"
-                        type={"password"}
-                        name="password"
-                        placeholder="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    /> */}
-                    {/* <button className="buttons" type='button' onClick={() => setShowForm(!showForm)}>EDIT ACCOUNT</button> */}
-                    {/* <input className="login" id="register" type="submit" name="Register" ></input>
-                    <button className="login" type="button" onClick={() => setMakeChanges(!makeChanges)}>Return</button>
-                </form>
-            </div> */}

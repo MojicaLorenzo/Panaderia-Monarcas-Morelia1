@@ -16,7 +16,7 @@ function App() {
     // const [reviews, setReviews] = useState([])
     const [customers, setCustomers] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
-    const [loggedInID, setLoggedInID] = useState(1)
+    const [loggedInID, setLoggedInID] = useState()
     const [customer, setCustomer] = useState(null);
     // const [searchTerm, setSearchTerm] = useState("")
     
@@ -32,9 +32,6 @@ function App() {
               .then((resp) => resp.json())
               .then(setCustomers);
         }, [])
-
-        // const hasCustomers = customers.length > 0
-          // console.log(customers)
 
     // useEffect(() => {
     //   fetch('/reviews')
