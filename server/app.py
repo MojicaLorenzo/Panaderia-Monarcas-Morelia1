@@ -53,7 +53,7 @@ def login():
         is_authenticate = customer.authenticate(password)
 
         if is_authenticate:
-            session['customer.id'] = customer.id
+            session['customer_id'] = customer.id
 
             resp = make_response(customer.to_dict(), 201)
             return resp
@@ -166,7 +166,6 @@ def customers():
             # uncomment this password
             new_customer.password_hash = password
             
-
             db.session.add(new_customer)
             db.session.commit()
             # sets signed in customer to session
@@ -194,9 +193,13 @@ def customer_by_id(id):
 #---------------- PATCH-----------------------
         elif request.method == 'PATCH':
             form_data = request.get_json()
+            print(form_data)
+            # password = form_data['password']
             try:
                 for attr in form_data:
                     setattr(customer, attr, form_data.get(attr))
+
+                customer.password_hash = form_data["password"]
                 db.session.commit()
                 resp = make_response(customer.to_dict(), 202)
             except ValueError:

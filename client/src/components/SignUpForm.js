@@ -60,7 +60,7 @@ function SignUpForm(){
 
     return (
         <div>
-            <div className="loginform" >
+            <div className="signup-form" >
                 <div className="centered-content">
                 <h2 className="login">Register New Account!</h2>
                 <br/>
@@ -101,7 +101,7 @@ function SignUpForm(){
                         />
                         <br/>
                         <button type='button' id="showPasswrd" onClick={() => setShowPassword(!showPassword)}>show password</button>
-                        <input id="register" type="submit" name="Register" ></input>
+                        <button id="register" type="submit" name="Register" >submit</button>
                     </form>
                 </div>
             </div>

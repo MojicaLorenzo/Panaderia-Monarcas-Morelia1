@@ -5,19 +5,20 @@ import Items from "./Items";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
 import Login from "./Login";
+import AccountForm from "./AccountForm";
+import Customers from "./Customers";
+import CustomerDetails from "./CustomerDetails";
 
 function App() {
 
 
     const [items, setItems] = useState([])
-    const [reviews, setReviews] = useState([])
+    // const [reviews, setReviews] = useState([])
     const [customers, setCustomers] = useState([])
-    // const [carts, setCarts] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
-
-
+    const [loggedInID, setLoggedInID] = useState(1)
     const [customer, setCustomer] = useState(null);
-
+    // const [searchTerm, setSearchTerm] = useState("")
     
 
     useEffect(() => {
@@ -32,13 +33,15 @@ function App() {
               .then(setCustomers);
         }, [])
 
-    useEffect(() => {
-      fetch('/reviews')
-          .then((resp) => resp.json())
-          .then(setReviews);
-    }, [])
+        // const hasCustomers = customers.length > 0
+          // console.log(customers)
 
-    // console.log(customers)
+    // useEffect(() => {
+    //   fetch('/reviews')
+    //       .then((resp) => resp.json())
+    //       .then(setReviews);
+    // }, [])
+    
 
     useEffect(() => {
           // auto-login
@@ -49,29 +52,49 @@ function App() {
           });
         }, []);
 
-        // if (!user) return <Login onLogin={setUser} loggedIn={loggedIn}/>;
+        console.log(customer)
 
+        // if (!customer) return <Login onLogin={setCustomer} loggedIn={loggedIn}/>
 
+      // const filteredCustomerIDs = customers.filter((customer) => customer.id === loggedInID).map((customer) => customer.id);
 
   return (
         
-          <Switch>
-            <Route exact path="/">
-              <HomePage/>
-            </Route>
-            <Route exact path='/signup'>
-              <SignUpForm/>
-            </Route>
-            <Route exact path='/loginform'>
-              <LoginForm loggedIn={loggedIn} onLogin={setCustomer} setLoggedIn={setLoggedIn}/>
-            </Route>
-            <Route exact path='/login'>
-              <Login loggedIn={loggedIn} onLogin={setCustomer}/>
-            </Route>
-            <Route exact path="/items">
-              <Items itemsArr={items}/>
-            </Route>
-          </Switch>
+      <Switch>
+        <Route exact path="/">
+          <HomePage itemsArr={items}/>
+        </Route>
+
+        <Route exact path='/signup'>
+          <SignUpForm/>
+        </Route>
+
+        <Route exact path='/loginform'>
+          <LoginForm loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCustomer={setCustomer}  
+            loggedInID={loggedInID} setLoggedInID={setLoggedInID}/>
+        </Route>
+
+        <Route exact path='/login'>
+          <Login loggedIn={loggedIn} onLogin={setCustomer} />
+        </Route>
+
+        <Route exact path='/account'>
+          <AccountForm customersArr={customers} setCustomersArr={setCustomers} 
+            loggedIn={loggedIn} setLoggedIn={setLoggedIn} loggedInID={loggedInID} />
+        </Route>
+        
+        <Route exact path='/customerdetails'>
+          <CustomerDetails customersArr={customers} setCustomersArr={setCustomers} />
+        </Route>
+
+        <Route exact path='/customers'>
+          <Customers customersArr={customers}/>
+        </Route>
+
+        <Route exact path="/items">
+          <Items itemsArr={items}/>
+        </Route>
+      </Switch>
     
   )
 }

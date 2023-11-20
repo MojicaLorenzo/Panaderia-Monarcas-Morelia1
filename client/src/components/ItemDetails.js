@@ -7,6 +7,7 @@ function ItemDetails({name, type, description, price, quantity, image}){
             <div id="items-info">
                 <h3>{name}</h3>
                 {/* <img src={image} alt={name}/> */}
+                {/* <h5>{type}</h5> */}
             </div>
         </div>
     )

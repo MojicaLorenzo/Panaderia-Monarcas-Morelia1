@@ -4,4 +4,203 @@
   --link: #61dafb;
   --text: hsla(0, 0%, 100%, 0.88);
 }
+header {
+  overflow: hidden;
+  /* background-color: #f1f1f1; */
+  padding: 20px 10px;
+  float: left;
+}
 
+#main-title {
+  /* height: 300px;
+  width: 1000px; */
+  /* margin: auto; */
+  padding-left: 320px;
+}
+
+/* body {
+  background-color: rgb(46, 46, 46);
+} */
+
+/* Add a black background color to the top navigation */
+.nav-bar {
+  background-color: #f52828b7;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 1000px;
+  margin: auto;
+}
+
+/* Style the links inside the navigation bar */
+.nav-bar a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  float: right;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+/* Change the color of links on hover */
+.nav-bar a:hover {
+  background-color: #eb5151b7;
+  color: rgb(255, 255, 255);
+  transform: scale(1.07);
+  border-radius: 10px;
+}
+
+/* Add a color to the active/current link */
+.nav-bar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.login-form {
+  overflow: hidden;
+  background-color: rgba(182, 182, 182, 0.295);
+  border: 5px solid #eb5151b7;
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  box-shadow: 5px 10px 10px color #eb5151b7;
+  margin: auto;
+  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+input {
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  display: block;
+  border-radius: 5px;
+  font-size: 16px;
+  background: white;
+  width: 100%;
+  border: 0;
+  padding: 10px 10px;
+  margin: 15px -10px;
+}
+
+button {
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  width: 80px;
+  border: 0;
+  padding: 10px 0;
+  margin-top: 10px;
+  margin-left: -5px;
+  border-radius: 5px;
+  background-color: #eb5151b7;
+  /* width: 100px;
+  height: 20px; */
+}
+
+button:hover {
+  transform: scale(1.04)
+}
+
+.signup-form {
+  overflow: hidden;
+  background-color: rgba(182, 182, 182, 0.342);
+  border: 5px solid #eb5151b7;
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  box-shadow: 5px 10px 10px color #eb5151b7;
+  margin: auto;
+  /* font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; */
+}
+
+/* #home-items-container {
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: transparent;
+  border: 1px solid #ff0b0b;
+  justify-content: space-between;
+} */
+
+#home-items-container{
+  /* width: 1000px; */
+  /* flex-wrap: wrap; */
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+}
+
+#home-items-card {
+  box-shadow: 18px 14px 16px rgba(100,0,0,0.5);
+  width:250px;
+  height:335px;
+  margin:auto;
+  border-radius:20px;
+  /* border-bottom-right-radius: 0px; */
+  background-color:#ffffffb7;
+  display: flex;
+}
+
+/* #home-items-card{
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+
+} */
+
+#home-items-info img {
+  height: 250px;
+  width: 250px;
+  border-radius: 5px;;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+#cart-button {
+  position: fixed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+SEARCH ICON 
+<i class="fa fa-search" aria-hidden="true"></i>
+
+*/
