@@ -1,7 +1,320 @@
-:root {
-  --bg: #282c34;
-  --header: #fff;
-  --link: #61dafb;
-  --text: hsla(0, 0%, 100%, 0.88);
+
+#main-title {
+  /* height: 300px;
+  width: 1000px; */
+  /* margin: auto; */
+  padding-left: 320px;
 }
 
+/* body {
+  background-color: rgb(46, 46, 46);
+} */
+
+/* Add a black background color to the top navigation */
+.nav-bar {
+  background-color: #f52828b7;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 1000px;
+  margin: auto;
+}
+
+/* Style the links inside the navigation bar */
+.nav-bar a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  float: right;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+/* Change the color of links on hover */
+.nav-bar a:hover {
+  background-color: #eb5151b7;
+  color: rgb(255, 255, 255);
+  transform: scale(1.07);
+  border-radius: 10px;
+}
+
+/* Add a color to the active/current link */
+.nav-bar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.login-form {
+  overflow: hidden;
+  background-color: rgba(182, 182, 182, 0.295);
+  border: 5px solid #eb5151b7;
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  box-shadow: 5px 10px 10px color #eb5151b7;
+  margin: auto;
+  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+input {
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  display: block;
+  border-radius: 5px;
+  font-size: 16px;
+  background: white;
+  width: 100%;
+  border: 0;
+  padding: 10px 10px;
+  margin: 15px -10px;
+}
+
+button {
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  width: 80px;
+  border: 0;
+  padding: 10px 0;
+  margin-top: 10px;
+  margin-left: -5px;
+  border-radius: 5px;
+  background-color: #eb5151b7;
+  /* width: 100px;
+  height: 20px; */
+}
+
+button:hover {
+  transform: scale(1.04)
+}
+
+.signup-form {
+  overflow: hidden;
+  background-color: rgba(182, 182, 182, 0.342);
+  border: 5px solid #eb5151b7;
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  box-shadow: 5px 10px 10px color #eb5151b7;
+  margin: auto;
+  /* font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; */
+}
+
+#home-items-container{
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+}
+
+#home-items-card {
+  box-shadow: 18px 14px 16px rgba(100,0,0,0.5);
+  width:250px;
+  height:335px;
+  margin:auto;
+  border-radius:20px;
+  /* border-bottom-right-radius: 0px; */
+  background-color:#ffffffb7;
+  display: flex;
+}
+
+#home-items-info h3{
+  width: 170px;
+}
+
+#home-items-info img {
+  height: 250px;
+  width: 250px;
+  border-radius: 5px;;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+/*  adjust button css down below*/
+
+#home-items-info button {
+  float: right;
+  /* background-color: transparent;
+  border: 2px solid black;
+  height: 85px;
+  width: 80px; */
+}
+
+/* #cart-button {
+  position: relative;
+  height: 85px;
+  width: 80px;
+  padding-bottom: 50px;
+} */
+
+#dark-mode-button {
+  top: 0px;
+  right: 0px
+}
+
+#logo-home{
+  height: 30px;
+  width: 30px;
+  top: 0px;
+  left: 0px;
+
+}
+
+#dark{
+  background-color: #282c34;
+}
+
+#light{
+  background-color: white;
+}
+
+html,
+body,
+.app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* input[type="checkbox"] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 25px;
+	height: 10px;
+	display: block;
+	border-radius: 24.125em;
+	position: relative;
+
+	background: blue;
+	box-shadow: inset -6.5em 6.5em 1.5em -3em #6863ae,
+		inset 1.5em -1.5em 2.5em #e6defe, -1em 1em 0.5em 0 #ccc7e4,
+		-0.4em 0.2em 1em 0 #aaa4d5, 0.4em -0.2em 1em 0 #726ca4;
+}
+
+label:after {
+	content: "";
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	width: 23.25em;
+	height: 23.25em;
+	background: #000;
+	border-radius: 100%;
+	transition: 1s cubic-bezier(0.25, 1, 0.5, 1);
+
+	background-image: url(https://www.sharetextures.com/wp-content/uploads/2018/09/PBR-concrete_white-ao-.jpg);
+	background-size: 150%;
+	background-position: 50% 50%;
+	filter: drop-shadow(-1em 1em 0.5em #6863ae);
+}
+
+label:before {
+	z-index: 1;
+	content: "";
+	position: absolute;
+	top: 0.4375em;
+	left: 0.4375em;
+	width: 23.25em;
+	height: 23.25em;
+	border-radius: 100%;
+	transition: 1s cubic-bezier(0.25, 1, 0.5, 1);
+
+	background: radial-gradient(circle at 70% 35%, #ddd2 20%, #000d);
+	filter: blur(1em);
+}
+
+input:checked + label {
+}
+
+input:checked + label:after,
+input:checked + label:before {
+	left: calc(100% - 0.4375em);
+	transform: translateX(-100%);
+}
+
+input:checked + label:after {
+	background-position: -100% 50%;
+	filter: drop-shadow(-5em 1.5em 0.5em #6863ae);
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+SEARCH ICON 
+<i class="fa fa-search" aria-hidden="true"></i>
+
+*/
