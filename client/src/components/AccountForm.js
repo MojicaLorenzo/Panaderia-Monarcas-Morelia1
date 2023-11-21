@@ -85,6 +85,24 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
         }
     };
 
+    const handleLogout = async () => {
+        try {
+            const response = await fetch("/logout", {
+                method: "DELETE"
+            });
+            if (response.ok) {
+            console.log("Logout successful!");
+            // setLoggedIn(false);
+            history.push("/login");
+        } else {
+            console.error("Failed to logout");
+            alert("Failed to logout");
+        }
+        } catch (error) {
+            console.error("Error during logout", error);
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setNewData({ ...newData, [name]: value })
@@ -120,6 +138,7 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
                     
                     <button className="login" id="register" type="submit" name="Register" value="submit" >Submit edit</button>
                     <button className="login" id="deleteAccount" type="button" onClick={handleDelete}>Delete Account</button>
+                    <button className="login" id="logout" type="button" onClick={handleLogout}>Logout</button>
                 </form>
             </div>
             
