@@ -78,12 +78,17 @@ def logout():
 # customer/user SESSION, LOGIN, AND LOGOUT ^^^^
 # ----------------------------------------
 
+
+
+
 @app.route('/items', methods = ['GET'])
 def items():
     if request.method == 'GET':
         items = Item.query.all()
         resp = [item.to_dict(rules=('-bakery', '-reviews', '-carts', '-bakery_id')) for item in items]
         return make_response (resp, 200)
+    
+
     
 # ----------------------------------------
 # ITEMS BY ID
@@ -137,6 +142,8 @@ def item_by_id(id):
         resp = make_response({"error": "No Item found!"})
     return resp
 
+
+
 #----------------------------------------
 # ALL CUSTOMERS
 #----------------------------------------
@@ -177,6 +184,9 @@ def customers():
             resp = make_response({ "errors": ["Create User!"]}, 400)
     return resp
 
+
+
+
 #----------------------------------------
 # CUSTOMERS BY ID
 #----------------------------------------
@@ -215,6 +225,9 @@ def customer_by_id(id):
         resp = make_response({"error" : "No Customer Found!"}, 404)    
     return resp
 
+
+
+
 #----------------------------------------
 # ALL REVIEWS
 #----------------------------------------
@@ -225,6 +238,7 @@ def reviews():
 # ---------------- GET -----------------------
     if request.method == 'GET':
         return make_response([review.to_dict(rules=('-customer', '-item')) for review in reviews], 200)
+
 
 
 
@@ -239,6 +253,9 @@ def carts():
     if request.method == 'GET':
         return make_response([cart.to_dict(rules = ('-customer.reviews', '-customer.password_hash')) for cart in carts], 200)
     
+
+
+
 
 #----------------------------------------
 # BAKERY BY ID

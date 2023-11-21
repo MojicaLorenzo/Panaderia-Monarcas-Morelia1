@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./HomePage";
 import Items from "./Items";
@@ -8,6 +8,8 @@ import Login from "./Login";
 import AccountForm from "./AccountForm";
 import Customers from "./Customers";
 import CustomerDetails from "./CustomerDetails";
+
+export const darkMode = createContext("light")
 
 function App() {
 
@@ -52,47 +54,55 @@ function App() {
         console.log(customer)
 
         // if (!customer) return <Login onLogin={setCustomer} loggedIn={loggedIn}/>
-
-      // const filteredCustomerIDs = customers.filter((customer) => customer.id === loggedInID).map((customer) => customer.id);
+        const [theme, setTheme] = useState ("light")
+        function toggleTheme(){
+          setTheme(!theme)
+        }
 
   return (
-        
-      <Switch>
-        <Route exact path="/">
-          <HomePage itemsArr={items}/>
-        </Route>
+    <darkMode.Provider value={theme ? "light" : "dark"}>
+    <div className="app" id={theme ? 'light' : 'dark'}>
+      <button className="button" onClick={toggleTheme}>Toggle Theme: {theme ? 'dark' : 'light'}</button>
+          <Switch onChange={toggleTheme}>
 
-        <Route exact path='/signup'>
-          <SignUpForm/>
-        </Route>
+            <Route exact path="/">
+              <HomePage itemsArr={items}/>
+            </Route>
 
-        <Route exact path='/loginform'>
-          <LoginForm loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCustomer={setCustomer}  
-            loggedInID={loggedInID} setLoggedInID={setLoggedInID}/>
-        </Route>
+            <Route exact path='/signup'>
+              <SignUpForm/>
+            </Route>
 
-        <Route exact path='/login'>
-          <Login loggedIn={loggedIn} onLogin={setCustomer} />
-        </Route>
+            <Route exact path='/loginform'>
+              <LoginForm loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCustomer={setCustomer}  
+                loggedInID={loggedInID} setLoggedInID={setLoggedInID}/>
+            </Route>
 
-        <Route exact path='/account'>
-          <AccountForm customersArr={customers} setCustomersArr={setCustomers} 
-            loggedIn={loggedIn} setLoggedIn={setLoggedIn} loggedInID={loggedInID} />
-        </Route>
-        
-        <Route exact path='/customerdetails'>
-          <CustomerDetails customersArr={customers} setCustomersArr={setCustomers} />
-        </Route>
+            <Route exact path='/login'>
+              <Login loggedIn={loggedIn} onLogin={setCustomer} />
+            </Route>
 
-        <Route exact path='/customers'>
-          <Customers customersArr={customers}/>
-        </Route>
+            <Route exact path='/account'>
+              <AccountForm customersArr={customers} setCustomersArr={setCustomers} 
+                loggedIn={loggedIn} setLoggedIn={setLoggedIn} loggedInID={loggedInID} />
+            </Route>
+            
+            <Route exact path='/customerdetails'>
+              <CustomerDetails customersArr={customers} setCustomersArr={setCustomers} />
+            </Route>
 
-        <Route exact path="/items">
-          <Items itemsArr={items}/>
-        </Route>
-      </Switch>
-    
+            <Route exact path='/customers'>
+              <Customers customersArr={customers}/>
+            </Route>
+
+            <Route exact path="/items">
+              <Items itemsArr={items}/>
+            </Route>
+
+          </Switch>
+          
+      </div>
+    </darkMode.Provider>
   )
 }
 

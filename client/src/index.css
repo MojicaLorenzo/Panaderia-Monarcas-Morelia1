@@ -168,6 +168,14 @@ button:hover {
   position: fixed;
 }
 
+#dark{
+  background-color: #282c34;
+}
+
+#light{
+  background-color: white;
+}
+
 
 
 
