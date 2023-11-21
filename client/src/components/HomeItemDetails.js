@@ -16,12 +16,12 @@ function HomeItemDetails({name, type, price, image}) {
                 <div id="home-items-info">
                     <img src={image} alt={name}/>
                     <h3>{name}</h3>
-                    <h5>price: ${price.toFixed(2)}</h5>
-                    {/* {inCart ? (
-                        <button onClick={addToCart}>Remove from Cart</button>
+                    {/* <h5>price: ${price.toFixed(2)}</h5> */}
+                    {inCart ? (
+                        <button id="cart-button" onClick={addToCart}>Remove from Cart</button>
                     ) : (
                         <button onClick={addToCart}>Add to Cart</button>
-                    )} */}
+                    )} 
                     {/* <h5>{type}</h5> */}
                 </div>
             </div>

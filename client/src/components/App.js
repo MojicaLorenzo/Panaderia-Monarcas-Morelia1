@@ -43,7 +43,6 @@ function App() {
     
 
     useEffect(() => {
-          // auto-login
           fetch("/check_session").then((resp) => {
             if (resp.ok) {
               resp.json().then((customer) => setCustomer(customer));
@@ -54,6 +53,7 @@ function App() {
         console.log(customer)
 
         // if (!customer) return <Login onLogin={setCustomer} loggedIn={loggedIn}/>
+
         const [theme, setTheme] = useState ("light")
         function toggleTheme(){
           setTheme(!theme)
@@ -62,7 +62,7 @@ function App() {
   return (
     <darkMode.Provider value={theme ? "light" : "dark"}>
     <div className="app" id={theme ? 'light' : 'dark'}>
-      <button className="button" onClick={toggleTheme}>Toggle Theme: {theme ? 'dark' : 'light'}</button>
+      <button id="dark-mode-button" onClick={toggleTheme}>{theme ? 'dark' : 'light'} mode</button>
           <Switch onChange={toggleTheme}>
 
             <Route exact path="/">
