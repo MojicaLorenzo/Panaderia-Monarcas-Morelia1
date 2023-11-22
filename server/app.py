@@ -254,6 +254,17 @@ def carts():
         return make_response([cart.to_dict(rules = ('-customer.reviews', '-customer.password_hash')) for cart in carts], 200)
     
 
+@app.route('/cart', methods=['GET'])
+def get_cart():
+    customer_id = session.get('customer_id')
+
+    if not customer_id:
+        return make_response({'error': 'Customer not logged in'}, 401)
+
+    cart = Cart.query.filter_by(customer_id=customer_id).first()
+    resp = [item.to_dict() for item in cart.items]
+
+    return make_response(resp, 200)
 
 
 

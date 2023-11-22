@@ -52,8 +52,8 @@
   padding: 40px 30px 30px 30px;
   border-radius: 10px;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 40%;
   width: 400px;
   box-shadow: 5px 10px 10px color #eb5151b7;
   margin: auto;
@@ -100,11 +100,14 @@ button:hover {
   padding: 40px 30px 30px 30px;
   border-radius: 10px;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  /* top: 50%;
+  left: 50%; */
   width: 400px;
   box-shadow: 5px 10px 10px color #eb5151b7;
   margin: auto;
+  top: 200px;
+  left: 40%;
+  /* left: 50px; */
   /* font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; */
 }
 

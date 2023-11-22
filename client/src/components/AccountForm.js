@@ -56,7 +56,7 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
                 // setMakeChanges(true); 
                 console.log("Account edit successful !")
                 alert("Update successful!")
-                history.push("/")
+                history.push("/homepage")
             } else {
                 console.error('Failed to update customer information');
                 alert('Failed to update customer');
@@ -75,7 +75,7 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
             console.log("Customer deleted successfully!");
             alert("Account deleted successfully!");
             // setLoggedIn(false);
-            history.push("/login");
+            history.push("/");
         } else {
             console.error("Failed to delete customer");
             alert("Failed to delete customer");
@@ -93,7 +93,8 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
             if (response.ok) {
             console.log("Logout successful!");
             // setLoggedIn(false);
-            history.push("/login");
+            alert("Logout successful!")
+            history.push("/");
         } else {
             console.error("Failed to logout");
             alert("Failed to logout");
@@ -107,11 +108,6 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
         const { name, value } = e.target
         setNewData({ ...newData, [name]: value })
     }
-
-    // const logOut = (e) => {
-    //     setLoggedIn(!loggedIn)
-    //     history.push('/CustomerLogin')
-    // }
 
     return ( 
             <div className="login-form">
