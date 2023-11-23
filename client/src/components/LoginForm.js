@@ -15,9 +15,6 @@ function LoginForm({setCustomer, loggedInID, setLoggedInID}) {
     
     function handleSubmit(e) {
         e.preventDefault();
-        // console.log(username)
-        // console.log(password)
-        // setIsLoading(true);
         fetch("/login", {
             method: "POST",
             headers: {
@@ -25,13 +22,10 @@ function LoginForm({setCustomer, loggedInID, setLoggedInID}) {
         },
         body: JSON.stringify({ username, password }),
         }).then((resp) => {
-            // setIsLoading(false);
             if (resp.ok) {
             resp.json().then((customer) => setCustomer(customer));
-            // setLoggedIn(!loggedIn)
-            // setLoggedInID(customer.id)
             console.log ("Successfully logged in !")
-            history.push("/")
+            history.push("/homepage")
             alert(`welcome back ${username}`)
         } else {
             resp.json().then((err) => setErrors(err.errors));

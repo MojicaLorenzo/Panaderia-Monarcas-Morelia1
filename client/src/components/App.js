@@ -8,6 +8,7 @@ import Login from "./Login";
 import AccountForm from "./AccountForm";
 import Customers from "./Customers";
 import CustomerDetails from "./CustomerDetails";
+import Cart from "./Cart";
 
 export const darkMode = createContext("light")
 
@@ -65,7 +66,7 @@ function App() {
       <button id="dark-mode-button" onClick={toggleTheme}>{theme ? 'dark' : 'light'} mode</button>
           <Switch onChange={toggleTheme}>
 
-            <Route exact path="/">
+            <Route exact path="/homepage">
               <HomePage itemsArr={items}/>
             </Route>
 
@@ -78,7 +79,7 @@ function App() {
                 loggedInID={loggedInID} setLoggedInID={setLoggedInID}/>
             </Route>
 
-            <Route exact path='/login'>
+            <Route exact path='/'>
               <Login loggedIn={loggedIn} onLogin={setCustomer} />
             </Route>
 
@@ -97,6 +98,10 @@ function App() {
 
             <Route exact path="/items">
               <Items itemsArr={items}/>
+            </Route>
+
+            <Route exact path="/cart">
+              <Cart/>
             </Route>
 
           </Switch>

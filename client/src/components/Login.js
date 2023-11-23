@@ -16,6 +16,7 @@ function Login( { loggedIn } ) {
 
     return(
         <div id='login-container'>
+            {/* <img src="./images/testheader.png"></img> */}
             <span>
                 {loggedIn ? 
                 <Link customers={customers}  to="/Account"><button className="login-butt" >Account</button></Link>:

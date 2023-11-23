@@ -29,9 +29,9 @@ function HomePage({itemsArr}){
                 <img id="logo-home" src="./images/logo.png" alt="Panaderia Monarcas Morelia"/>
             </div>
             <div className="nav-bar">
-                <NavLink to="/signup" className="login-button">  Signup  </NavLink>
-                <NavLink to="/loginform" className="login-button">  Login  </NavLink>
-                <NavLink to="/account" className="login-button"><i class="fa fa-user-circle-o" aria-hidden="true"></i></NavLink>
+                {/* <NavLink to="/signup" className="login-button">  Signup  </NavLink>
+                <NavLink to="/loginform" className="login-button">  Login  </NavLink> */}
+                <NavLink to="/account" className="login-button"><i className="fa fa-user-circle-o" aria-hidden="true"></i></NavLink>
             </div>
             <div id="home-items-container">
                 {mappedHomeItemsArr}
