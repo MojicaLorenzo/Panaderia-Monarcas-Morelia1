@@ -16,20 +16,20 @@ function Cart({}) {
     };
     // console.log(cartItems)
 
-    const removeFromCart = async () => {
-        try {
-            // Assuming you have an item ID, make a DELETE request to remove the item from the cart
-            await fetch(`/cart/remove/${id}`, {
+    const removeFromCart = async (id) => {
+    try {
+        // Assuming you have an item ID, make a DELETE request to remove the item from the cart
+        await fetch(`/cart/remove/${id}`, {
             method: "DELETE",
         });
-    
-          // Update the local state to reflect the change
-        setInCart(false);
-            console.log("item removed successfully")
-        } catch (error) {
-            console.error("Error removing item from cart:", error);
-        }
-    };
+
+        // Update the local state to reflect the change
+        setCartItems((prevCartItems) => prevCartItems.filter(item => item.id !== id));
+        console.log("item removed successfully");
+    } catch (error) {
+        console.error("Error removing item from cart:", error);
+    }
+};
 
     useEffect(() => {
         // Check if the user is logged in
