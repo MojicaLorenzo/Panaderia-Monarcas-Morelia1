@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import React, { createContext, useEffect, useState, } from "react";
+import { Switch, Route, BrowserRouter, Link} from "react-router-dom";
 import HomePage from "./HomePage";
 import Items from "./Items";
 import SignUpForm from "./SignUpForm";
@@ -9,6 +9,8 @@ import AccountForm from "./AccountForm";
 import Customers from "./Customers";
 import CustomerDetails from "./CustomerDetails";
 import Cart from "./Cart";
+import Search from "./Search";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export const darkMode = createContext("light")
 
@@ -21,7 +23,7 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false)
     const [loggedInID, setLoggedInID] = useState()
     const [customer, setCustomer] = useState(null);
-    // const [searchTerm, setSearchTerm] = useState("")
+    const [searchTerm, setSearchTerm] = useState("")
     
 
     useEffect(() => {
@@ -60,14 +62,28 @@ function App() {
           setTheme(!theme)
         }
 
+        const location = useLocation();
+        const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+
   return (
     <darkMode.Provider value={theme ? "light" : "dark"}>
-    <div className="app" id={theme ? 'light' : 'dark'}>
-      <button id="dark-mode-button" onClick={toggleTheme}>{theme ? 'dark' : 'light'} mode</button>
+      
+      <div className="app" id={theme ? 'light' : 'dark'}>
+            <Link to="/homepage" >
+            <img id="logo"  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Monarcas_Morelia_2.svg/1200px-Monarcas_Morelia_2.svg.png" alt="Logo" />
+            </Link>
+            <button id="dark-mode-button" onClick={toggleTheme}>{theme ? 'dark' : 'light'} mode</button>
           <Switch onChange={toggleTheme}>
 
+            
+
             <Route exact path="/homepage">
-              <HomePage itemsArr={items}/>
+              <HomePage itemsArr={items} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+            </Route>
+            
+
+            <Route exact path="/search">
+              <Search itemsArr={items} setSearchTerm={setSearchTerm}/>
             </Route>
 
             <Route exact path='/signup'>
@@ -76,7 +92,7 @@ function App() {
 
             <Route exact path='/loginform'>
               <LoginForm loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCustomer={setCustomer}  
-                loggedInID={loggedInID} setLoggedInID={setLoggedInID}/>
+                loggedInID={loggedInID} setLoggedInID={setLoggedInID} customer={customer}/>
             </Route>
 
             <Route exact path='/'>
@@ -84,8 +100,7 @@ function App() {
             </Route>
 
             <Route exact path='/account'>
-              <AccountForm customersArr={customers} setCustomersArr={setCustomers} 
-                loggedIn={loggedIn} setLoggedIn={setLoggedIn} loggedInID={loggedInID} />
+              <AccountForm customersArr={customers} setCustomersArr={setCustomers} loggedIn={loggedIn} />
             </Route>
             
             <Route exact path='/customerdetails'>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
-function LoginForm({setCustomer, loggedInID, setLoggedInID}) {
+function LoginForm({customer, setCustomer, loggedInID, setLoggedInID}) {
     
     const [isLoading, setIsLoading] = useState(false);
     const [username, setUsername] = useState('')
@@ -24,11 +24,12 @@ function LoginForm({setCustomer, loggedInID, setLoggedInID}) {
         }).then((resp) => {
             if (resp.ok) {
             resp.json().then((customer) => setCustomer(customer));
-            console.log ("Successfully logged in !")
+            console.log ("Successfully logged in!")
             history.push("/homepage")
             alert(`welcome back ${username}`)
         } else {
             resp.json().then((err) => setErrors(err.errors));
+            alert("Login failed try again")
             }
         });
     }

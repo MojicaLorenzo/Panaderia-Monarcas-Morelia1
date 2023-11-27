@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Item, Customer, Review, Cart, Bakery
+from models import db, Item, Customer, Review, Cart, Bakery, Cart_item
 
 with app.app_context():
 
@@ -17,6 +17,7 @@ with app.app_context():
     Review.query.delete()
     Cart.query.delete()
     Bakery.query.delete()
+    Cart_item.query.delete()
 
     db.session.commit()
 
@@ -72,7 +73,7 @@ with app.app_context():
             ),
             Item(
                 name="Polvoron",
-                type="Sweet",
+                type="savory",
                 description="THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.",
                 price=60,
                 quantity=20,
@@ -87,24 +88,38 @@ with app.app_context():
             db.session.commit()
 
     def seed_customers():
-            customer = Customer(
+            customers = [
+            Customer(
                 name="enzo",
-                username="enzowenzo",
+                username="enzo",
                 email="example@example.com",
-                _password_hash="apple561",
+                _password_hash="password",
+            ),
+            Customer(
+                name="bob",
+                username="bob",
+                email="bob@example.com",
+                _password_hash="bob",
             )
-            db.session.add(customer)
+        ]
+            db.session.add_all(customers)
 
             db.session.commit()
     
     def seed_reviews():
-            review = Review(
+            reviews = [
+            Review(
             comment = "Super duper delicious 10/10",
             customer_id = 1,
             item_id = 1,
+            ),
+            Review(
+                comment = "Yummy wummy",
+                customer_id = 2,
+                item_id = 3
             )
-
-            db.session.add(review)
+        ]
+            db.session.add_all(reviews)
 
             db.session.commit()
 
@@ -118,20 +133,41 @@ with app.app_context():
             db.session.commit()
 
     def seed_carts():
-            cart = Cart(
-                customer_id = 1,
-                item_id = 2
+            carts = [
+            Cart(
+            customer_id = 1,
+            ),
+            Cart(
+            customer_id = 1,
             )
-            db.session.add(cart)
+        ]
+
+            db.session.add_all(carts)
+
+            db.session.commit()
+    
+    def seed_cart_items():
+            cart_items = [
+            Cart_item(
+                item_id = 1,
+                cart_id = 1
+            ),
+            Cart_item(
+                item_id = 2,
+                cart_id = 1
+            )
+        ]
+            db.session.add_all(cart_items)
 
             db.session.commit()
 
     if __name__ == '__main__':
         with app.app_context():
-            seed_items()  
+            seed_items() 
             seed_customers()  
             seed_reviews()
             seed_bakery()
             seed_carts()
+            seed_cart_items()
 
         print('Data has been seeded.')

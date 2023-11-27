@@ -1,5 +1,5 @@
 
-#main-title {
+.main-title {
   /* height: 300px;
   width: 1000px; */
   /* margin: auto; */
@@ -45,6 +45,18 @@
   color: white;
 }
 
+#searcher {
+  width: 200px;
+  float: right;
+  /* padding-left: 5px; */
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 15px;
+  background-color: rgb(255, 255, 255);
+}
+
 .login-form {
   overflow: hidden;
   background-color: rgba(182, 182, 182, 0.295);
@@ -85,8 +97,6 @@ button {
   margin-left: -5px;
   border-radius: 5px;
   background-color: #eb5151b7;
-  /* width: 100px;
-  height: 20px; */
 }
 
 button:hover {
@@ -115,12 +125,15 @@ button:hover {
   display: flex;
   margin: auto;
   flex-direction: row;
+  width: 1200px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 #home-items-card {
   box-shadow: 18px 14px 16px rgba(100,0,0,0.5);
   width:250px;
-  height:335px;
+  height:435px;
   margin:auto;
   border-radius:20px;
   /* border-bottom-right-radius: 0px; */
@@ -142,12 +155,14 @@ button:hover {
 
 /*  adjust button css down below*/
 
-#home-items-info button {
+.cart-button {
+  width: 240px;
+  height: 40px;
   float: right;
   /* background-color: transparent;
   border: 2px solid black;
-  height: 85px;
-  width: 80px; */
+  height: 85px; */
+  
 }
 
 /* #cart-button {
@@ -172,10 +187,12 @@ button:hover {
 
 #dark{
   background-color: #282c34;
+  height: 100%;
 }
 
 #light{
   background-color: white;
+  height: 100%;
 }
 
 html,
@@ -188,6 +205,24 @@ body,
 
 #root {
   height: 100%;
+}
+
+footer {
+  background-color: #f52828b7;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+#logo {
+  height: 100px;
+  float: right;
+  padding-top: 20px;
+  padding-right: 100px;
+  /* right: 100px; */
 }
 
 

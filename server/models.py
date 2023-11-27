@@ -20,21 +20,24 @@ class Item (db.Model, SerializerMixin):
     quantity = db.Column(db.Integer)
     image = db.Column(db.String)
 
-    # foreign keys
+    #----------------------foreign-keys----------------------------------
     bakery_id = db.Column(db.Integer, db.ForeignKey('bakery.id'))
 
-    # relationships
+    #----------------------relationships---------------------------------
     bakery = db.relationship('Bakery', back_populates = 'items')
     reviews = db.relationship('Review', back_populates = 'item', cascade = 'all, delete-orphan')
-    carts = db.relationship('Cart', back_populates= 'items', cascade = 'all, delete-orphan')
+    # carts = db.relationship('Cart', back_populates= 'items', cascade = 'all, delete-orphan')
+    cart_items = db.relationship('Cart_item', back_populates = "item", cascade = "all, delete-orphan")
 
-    # association proxy
-    customers = association_proxy('Cart', 'customer')
+    #----------------------association-proxy-----------------------------
+    customers = association_proxy('cart_items', 'cart.customer')
+    cart = association_proxy('Cart_item', 'cart')
+    # ('Cart', 'customer')
 
-    # serialization
-    serialize_rules = ('-bakery.items', '-reviews.items', '-carts.items')
+    #----------------------serialization---------------------------------
+    serialize_rules = ('-bakery.items', '-reviews.items', '-cart_items.item', '-cart_items.cart')
 
-    #validation
+    #----------------------validations-----------------------------------
     @validates('name')
     def validates_name(self, key, name):
         if not name:
@@ -51,19 +54,20 @@ class Customer (db.Model, SerializerMixin):
     email = db.Column(db.String, unique = True)
     _password_hash = db.Column(db.String)
 
-    # foreign keys
+    #----------------------foreign-keys----------------------------------
     
-    # relationships
+    #----------------------relationships---------------------------------
     reviews = db.relationship('Review', back_populates = 'customer', cascade = 'all, delete-orphan')
     carts = db.relationship('Cart', back_populates = 'customer', cascade = 'all, delete-orphan')
 
-    # association proxy
-    items = association_proxy('Cart', 'item')
+    #----------------------association-proxy-----------------------------
+    items = association_proxy('carts', 'items')
+    # items = association_proxy('Cart', 'item')
 
-    # serialization
+    #----------------------serialization---------------------------------
     serialize_rules = ('-reviews.customer', '-carts.customer')
 
-    #validations
+    #----------------------validations-----------------------------------
     @validates('name')
     def validates_name(self, key, name):
         if not name:
@@ -95,33 +99,6 @@ class Customer (db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(
             self._password_hash, password.encode('utf-8'))
-    
-    # @hybrid_property
-    # def password_hash(self):
-    #     raise AttributeError("Don't have permission to access the password")
-
-    # @password_hash.setter
-    # def password_hash(self, password):
-    #     new_hashed_password = bcrypt.generate_password_hash(password.encode('utf-8'))
-    #     self._password_hash = new_hashed_password.decode('utf-8')
-
-    # def authenticate(self, password):
-    #     return bcrypt.check_password_hash(self.password_hash, password.encode('utf-8'))
-    
-
-
-
-    # move to front-end
-    # @validates('password_hash')
-    # def validates_password_hash(self, key, password_hash):
-    #     if len(password_hash) < 8:
-    #         raise ValueError("Make sure your password is at lest 8 letters")
-    #     elif re.search('[0-9]',password_hash) is None:
-    #         raise ValueError("Make sure your password has a number in it")
-    #     elif re.search('[A-Z]',password_hash) is None: 
-    #         raise ValueError("Make sure your password has a capital letter in it")
-    #     else:
-    #         return password_hash
 
 
 class Review (db.Model, SerializerMixin):
@@ -130,17 +107,17 @@ class Review (db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     comment = db.Column(db.String)
 
-    # foreign keys
+    #----------------------foreign-keys----------------------------------
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
 
-    # relationships
+    #----------------------relationships---------------------------------
     customer = db.relationship('Customer', back_populates = 'reviews')
     item = db.relationship('Item', back_populates = 'reviews')
 
-    # association proxy
+    #----------------------association-proxy-----------------------------
 
-    # serialization
+    #----------------------serialization---------------------------------
     serialize_rules = ('-customer.reviews', '-item.reviews')
 
 
@@ -149,18 +126,38 @@ class Cart (db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
 
-    # foreign keys
+    #----------------------foreign-keys----------------------------------
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
+
+    #----------------------relationships---------------------------------
+    customer = db.relationship('Customer', back_populates = 'carts')
+    cart_items = db.relationship('Cart_item', back_populates = 'cart')
+    # items = db.relationship('Item', back_populates = 'carts')
+
+    #----------------------association-proxy-----------------------------
+    items = association_proxy("cart_items", "item")
+
+    #----------------------serialization---------------------------------
+    serialize_rules = ('-customer.carts', '-cart_items.cart', '-customer.reviews', '-cart_items.item')
+
+
+class Cart_item (db.Model, SerializerMixin):
+    __tablename__ = "cart_items"
+
+    id = db.Column(db.Integer, primary_key = True)
+    cart_id = db.Column(db.Integer, db.ForeignKey('carts.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
 
-    # relationships
-    customer = db.relationship('Customer', back_populates = 'carts')
-    items = db.relationship('Item', back_populates = 'carts')
+    #----------------------relationships---------------------------------
+    cart = db.relationship('Cart', back_populates = 'cart_items')
+    item = db.relationship('Item', back_populates = 'cart_items')
+    
+    #----------------------association-proxy-----------------------------
+    items = association_proxy('item', 'cart')
 
-    # association proxy
+    #----------------------serialization---------------------------------
+    serialize_rules = ('-cart.cart_items', '-item.cart_items', )
 
-    # serialization
-    serialize_rules = ('-customer.carts', '-item.carts')
 
 
 class Bakery (db.Model, SerializerMixin):
@@ -172,12 +169,12 @@ class Bakery (db.Model, SerializerMixin):
     # email = db.Column(db.String)
     # password = db.Column(db.String)
 
-    # foreign keys
+    #----------------------foreign-keys----------------------------------
 
-    # relationships
+    #----------------------relationships---------------------------------
     items = db.relationship('Item', back_populates = 'bakery', cascade = 'all, delete-orphan')
 
-    # association proxy
+    #----------------------association-proxy-----------------------------
 
-    # serialization
+    #----------------------serialization---------------------------------
     serialize_rules = ('-items.bakery',)

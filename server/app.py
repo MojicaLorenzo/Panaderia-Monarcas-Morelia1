@@ -2,7 +2,8 @@
 
 # Standard library imports
 from flask import make_response, request, session
-from models import Item, Cart, Customer, Bakery, Review
+from flask import jsonify
+from models import Item, Cart, Customer, Bakery, Review, Cart_item
 from config import app, db
 
 # Remote library imports
@@ -23,20 +24,45 @@ def index():
 # customer/user SESSION, LOGIN, AND LOGOUT
 # ----------------------------------------
 
-@app.route('/check_session', methods = ['GET'])
+@app.route('/check_session', methods=['GET'])
 def check_session():
-    # check current session
-    customer_id = session['customer_id']
+    # Check current session
+    customer_id = session.get('customer_id')
 
-    customer = Customer.query.filter(Customer.id == customer_id).first()
+    if customer_id:
+        customer = Customer.query.filter(Customer.id == customer_id).first()
 
-    if customer:
-        resp = make_response( customer.to_dict(), 200)
-        return resp
+        if customer:
+            # If the user has a cart, retrieve it; otherwise, create a new cart
+            cart = Cart.query.filter_by(customer_id=customer.id).first()
+            if not cart:
+                cart = Cart(customer=customer)
+                db.session.add(cart)
+                db.session.commit()
+
+            # Store the cart's ID in the session
+            session['cart_id'] = cart.id
+
+            resp = make_response(customer.to_dict(), 200)
+            return resp
+
+    resp = make_response({}, 404)
+    return resp
+
+# @app.route('/check_session', methods = ['GET'])
+# def check_session():
+#     # check current session
+#     customer_id = session['customer_id']
+
+#     customer = Customer.query.filter(Customer.id == customer_id).first()
+
+#     if customer:
+#         resp = make_response( customer.to_dict(), 200)
+#         return resp
     
-    else:
-        resp = make_response({}, 404)
-        return resp
+#     else:
+#         resp = make_response({}, 404)
+#         return resp
 
 @app.route('/login', methods = ['POST'])
 def login():
@@ -85,7 +111,7 @@ def logout():
 def items():
     if request.method == 'GET':
         items = Item.query.all()
-        resp = [item.to_dict(rules=('-bakery', '-reviews', '-carts', '-bakery_id')) for item in items]
+        resp = [item.to_dict(rules=('-bakery', '-reviews', '-cart_items', '-bakery_id')) for item in items]
         return make_response (resp, 200)
     
 
@@ -100,7 +126,7 @@ def item_by_id(id):
 
 # ---------------- GET -----------------------
         if request.method == 'GET':
-            resp = make_response(item_by_id.to_dict(rules=('-bakery', '-reviews', '-carts')), 200)
+            resp = make_response(item_by_id.to_dict(rules=('-bakery', '-reviews', '-cart')), 200)
 
 #----------------- POST-----------------------
         elif request.method == 'POST':
@@ -249,10 +275,53 @@ def reviews():
 @app.route('/carts', methods=['GET', 'POST'])
 def carts():
     carts = Cart.query.all()
+    print(carts)
 # ---------------- GET -----------------------
     if request.method == 'GET':
-        return make_response([cart.to_dict(rules = ('-customer.reviews', '-customer.password_hash')) for cart in carts], 200)
+        return make_response([cart.to_dict(rules = ('-cart_items.cart.customer.reviews', '-cart_items.cart.customer.password_hash', '-customer')) for cart in carts], 200)
     
+
+@app.route('/cart_items', methods = ['GET'])
+def cart_items():
+    cart_items = Cart_item.query.all()
+    print(cart_items)
+
+    resp = [cart_item.to_dict(rules=('-cart.customer.reviews', '-cart.customer._password_hash', '-cart.reviews')) for cart_item in cart_items]
+
+    return make_response(resp, 200)
+
+#----------------------------------------
+# CART CRUD
+#----------------------------------------
+
+# ---------------- GET ---------------------------------------------
+# @app.route('/cart', methods=['GET'])
+# def get_cart():
+#     customer_id = session.get('customer_id')
+#     print(customer_id)
+
+#     if not customer_id:
+#         return make_response({'error': 'Customer not logged in'}, 401)
+
+#     cart = Cart.query.filter_by(customer_id=customer_id).first()
+#     resp = [item.to_dict() for item in cart.items]
+
+#     return make_response(resp, 200)
+
+# @app.route('/cart', methods=['GET'])
+# def get_cart():
+#     customer_id = session.get('customer_id')
+
+#     if not customer_id:
+#         return make_response({'error': 'Customer not logged in'}, 401)
+
+#     cart = Cart.query.filter_by(customer_id=customer_id).first()
+
+#     if not cart:
+#         return make_response({'error': 'Cart not found'}), 404
+
+#     cart_items = [item.to_dict() for item in cart.items]
+#     return make_response({'items': cart_items}), 200
 
 @app.route('/cart', methods=['GET'])
 def get_cart():
@@ -262,9 +331,65 @@ def get_cart():
         return make_response({'error': 'Customer not logged in'}, 401)
 
     cart = Cart.query.filter_by(customer_id=customer_id).first()
-    resp = [item.to_dict() for item in cart.items]
 
+    if not cart:
+        return make_response({'error': 'Cart not found'}, 404)
+
+    resp = [item.to_dict() for item in cart.items]
     return make_response(resp, 200)
+
+# --------------------POST------------------------------------------
+@app.route('/cart/add', methods=['POST'])
+def add_to_cart():
+    customer_id = session.get('customer_id')
+
+    if not customer_id:
+        return make_response({'error': 'Customer not logged in'}, 401)
+
+    form_data = request.get_json()
+    item_id = form_data.get('item_id')
+
+    # Validate
+
+    cart = Cart.query.filter_by(customer_id=customer_id).first()
+
+    if not cart:
+        return make_response({'error': 'Cart not found'}, 404)
+
+    item = Item.query.get(item_id)
+
+    if not item:
+        return make_response({'error': 'Item not found'}, 403)
+
+    # Add the item to the cart
+    cart_item = Cart_item(item=item, cart=cart)
+    db.session.add(cart_item)
+    db.session.commit()
+
+    return make_response({'message': 'Item added to cart successfully'}, 201)
+
+# --------------------DELETE-----------------------------------------------
+@app.route('/cart/remove/<int:item_id>', methods=['DELETE'])
+def remove_from_cart(item_id):
+    customer_id = session.get('customer_id')
+
+    if not customer_id:
+        return make_response({'error': 'Customer not logged in'}, 401)
+
+    cart = Cart.query.filter_by(customer_id=customer_id).first()
+
+    if not cart:
+        return make_response({'error': 'Cart not found'}, 404)
+
+    cart_item = Cart_item.query.filter_by(cart_id=cart.id, item_id=item_id).first()
+
+    if not cart_item:
+        return make_response({'error': 'Item not found in the cart'}, 404)
+
+    db.session.delete(cart_item)
+    db.session.commit()
+
+    return jsonify({'message': 'Item removed from the cart successfully'}), 204
 
 
 
