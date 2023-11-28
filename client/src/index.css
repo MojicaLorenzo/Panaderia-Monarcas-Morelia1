@@ -1,45 +1,43 @@
 
 .main-title {
-  /* height: 300px;
-  width: 1000px; */
-  /* margin: auto; */
   padding-left: 320px;
 }
-
-/* body {
-  background-color: rgb(46, 46, 46);
-} */
 
 /* Add a black background color to the top navigation */
 .nav-bar {
   background-color: #f52828b7;
   overflow: hidden;
   border-radius: 10px;
-  width: 1000px;
-  margin: auto;
+  width: 1150px;
+  position: relative;
+  left: 375px
+
 }
 
 /* Style the links inside the navigation bar */
-.nav-bar a {
+
+/* .nav-bar a {
   float: left;
   color: #f2f2f2;
   text-align: center;
   padding: 14px 16px;
-  text-decoration: none;
+  text-decoration: underline;
   font-size: 17px;
   float: right;
   font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-}
+} */
 
 /* Change the color of links on hover */
-.nav-bar a:hover {
+
+/* .nav-bar a:hover {
   background-color: #eb5151b7;
   color: rgb(255, 255, 255);
   transform: scale(1.07);
   border-radius: 10px;
-}
+} */
 
 /* Add a color to the active/current link */
+
 .nav-bar a.active {
   background-color: #04AA6D;
   color: white;
@@ -48,7 +46,6 @@
 #searcher {
   width: 200px;
   float: right;
-  /* padding-left: 5px; */
   padding: 6px;
   border: none;
   margin-top: 8px;
@@ -90,11 +87,11 @@ button {
   color: #fff;
   font-size: 16px;
   text-transform: uppercase;
-  width: 80px;
-  border: 0;
+  /* width: 80px;
   padding: 10px 0;
   margin-top: 10px;
-  margin-left: -5px;
+  margin-left: -5px; */
+  border: 0;
   border-radius: 5px;
   background-color: #eb5151b7;
 }
@@ -125,7 +122,7 @@ button:hover {
   display: flex;
   margin: auto;
   flex-direction: row;
-  width: 1200px;
+  width: 1100px;
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -136,7 +133,6 @@ button:hover {
   height:435px;
   margin:auto;
   border-radius:20px;
-  /* border-bottom-right-radius: 0px; */
   background-color:#ffffffb7;
   display: flex;
 }
@@ -159,6 +155,7 @@ button:hover {
   width: 240px;
   height: 40px;
   float: right;
+  position: relative;
   /* background-color: transparent;
   border: 2px solid black;
   height: 85px; */
@@ -172,9 +169,29 @@ button:hover {
   padding-bottom: 50px;
 } */
 
-#dark-mode-button {
+/* #dark-mode-button {
   top: 0px;
   right: 0px
+} */
+
+#dark-mode-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #ff3d3d;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+#dark-mode-button:hover {
+  background-color: #218838;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
 
 #logo-home{
@@ -223,6 +240,236 @@ footer {
   padding-top: 20px;
   padding-right: 100px;
   /* right: 100px; */
+}
+
+#more-info-button {
+  position: relative;
+}
+
+
+
+/* ------------------------------CSS-TESTING--------------------------------------- */
+
+.home-item-card {
+  flex: 1 0 calc(25% - 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 16px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+
+.home-item-card:hover {
+  transform: scale(1.05);
+}
+
+.card-image {
+  width: 100%;
+  height: 230px; /* Adjusted height for larger images */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between; /* Added to space the buttons */
+  align-items: center; /* Added to center the buttons vertically */
+  margin-top: auto;
+}
+
+.info-button,
+.cart-button {
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.info-button {
+  background-color: #6b6b6b;
+  color: #ffffff;
+  padding: 8px; /* Adjusted padding for info button */
+  width: 30px;
+}
+
+.cart-button {
+  background-color: #218838;
+  color: #fff;
+  padding: 12px; /* Adjusted padding for cart button */
+}
+
+.info-button:hover {
+  background-color: #4b4b4b;
+  color: #fff;
+}
+
+.cart-button:hover {
+  background-color: #d9534f;
+}
+
+
+/* ------------------------------NAVBAR--------------------------------------- */
+/* Filter Styles */
+/* Filter Styles */
+/* Filter Styles */
+
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #f52828b7; /* Light gray background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-bar a {
+  padding: 14px 16px;
+}
+
+.nav-bar a:hover {
+  background-color: #eb5151b7;
+  color: rgb(255, 255, 255);
+  transform: scale(1.07);
+  border-radius: 10px;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+}
+
+.filter-label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #333; /* Dark text color */
+}
+
+.filter-select {
+  padding: 8px;
+  border: 1px solid #ced4da; /* Light gray border */
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.login-button,
+#cart-button {
+  text-decoration: none;
+  color: #ffffff; /* Dark text color */
+  margin-right: 20px;
+  font-size: 16px;
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.login-button:hover,
+#cart-button:hover {
+  color: #007bff; /* Blue color on hover */
+}
+
+.search-bar {
+  margin-right: 20px;
+}
+
+/* Optional: Add some padding or margin to the filter dropdown to separate it from the login and cart icons */
+.filter-container {
+  margin-right: 20px;
+}
+
+
+
+
+/* ------------------------------CART-PAGE--------------------------------------- */
+
+.cart-container {
+  margin: 20px;
+  width: 700px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+}
+
+.item-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-actions button {
+  background-color: #d9534f;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.item-actions button:hover {
+  background-color: #c9302c;
+}
+
+.total {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+
+
+.detailed-item-container {
+  width: 1000px;
+  position: absolute;
+  top: 100px;
+  left: 22%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 16px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detailed-item-info {
+  text-align: center;
+}
+
+.item-image {
+  width: 30%; /* Make the image take the full width of the container */
+  height: auto; /* Maintain the aspect ratio */
+  max-height: 400px; /* Set a maximum height for the image */
+  object-fit: cover;
+  border-radius: 8px;
+
 }
 
 

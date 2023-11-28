@@ -50,24 +50,23 @@ const filteredArr = itemsArr.filter((searchItemObj) => {
         </header>
 
             <div className="nav-bar">
-                <NavLink to="/account" className="login-button"><i className="fa fa-user-circle-o" aria-hidden="true"></i></NavLink>
                 <Search setSearchTerm={setSearchTerm} />
+                    <div>
+                        <span>Filter by Type:</span>
+                        <select
+                        value={selectedType}
+                        onChange={(e) => handleTypeChange(e.target.value)}
+                        >
+                        {uniqueTypes.map((type) => (
+                            <option key={type} value={type}>
+                                {type}
+                            </option>
+                        ))}
+                        </select>
+                    </div>
+                <NavLink to="/account" className="login-button"><i className="fa fa-user-circle-o" aria-hidden="true"></i></NavLink>
                 <NavLink to="/cart" id="cart-button" ><i className="fa fa-shopping-cart" aria-hidden="true"></i></NavLink>
-            <div>
-                <span>Filter by Type:</span>
-                <select
-                value={selectedType}
-                onChange={(e) => handleTypeChange(e.target.value)}
-                >
-                {uniqueTypes.map((type) => (
-                    <option key={type} value={type}>
-                        {type}
-                    </option>
-                ))}
-                </select>
             </div>
-            </div>
-
             <div id="home-items-container">
                 {mappedHomeItemsArr}
             </div>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import { Switch, Route, BrowserRouter, Link} from "react-router-dom";
 
 
-function HomeItemDetails({name, type, price, image, id}) {
+function HomeItemDetails({name, type, price, image, id, description}) {
 
     const [inCart, setInCart] = useState(false)
 
@@ -41,27 +42,30 @@ function HomeItemDetails({name, type, price, image, id}) {
     
 
     return (
-    <div id="home-items-card">
-        <div id="home-items-info">
-            <img src={image} alt={name} />
+    <div className="home-item-card">
+        <img src={image} alt={name} className="card-image" />
+        <div className="card-info">
             <h3>{name}</h3>
-            <h5>${price.toFixed(2)}</h5>
-            <div id="cart-button">
+            <p className="item-type">{type}</p>
+            <p className="item-price">${price.toFixed(2)}</p>
+            {/* <p className="item-description">{description}</p> */}
+            <div className="card-buttons">
+                <Link to={`/items/${id}`} className="info-button">
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
+                </Link>
                 {inCart ? (
-                <button className="cart-button" onClick={removeFromCart}>
+                    <button className="cart-button" onClick={removeFromCart}>
                     Remove from Cart
-                </button>
+                    </button>
                 ) : (
-                <button className="cart-button" onClick={addToCart}>
+                    <button className="cart-button" onClick={addToCart}>
                     Add to Cart
-                </button>
+                    </button>
                 )}
-                {/* <h5>{type}</h5> */}
             </div>
         </div>
     </div>
-            
-    )
+    );
 }
 
 export default HomeItemDetails
@@ -78,7 +82,29 @@ export default HomeItemDetails
 
 
 
-
+// {/* <div id="home-items-card">
+//         <div id="home-items-info">
+//             <img src={image} alt={name} />
+//             <h3>{name}</h3>
+//             <h5>${price.toFixed(2)}</h5>
+//             <Link to={`/items/${id}`}><button id="more-info-button"><i className="fa fa-info-circle" aria-hidden="true"></i></button></Link>
+//             <div id="cart-button">
+//                 {inCart ? (
+//                 <button className="cart-button" onClick={removeFromCart}>
+//                     Remove from Cart
+//                 </button>
+//                 ) : (
+//                 <button className="cart-button" onClick={addToCart}>
+//                     Add to Cart
+//                 </button>
+//                 )}
+//                 {/* <h5>{type}</h5> */}
+//             </div>
+//         </div>
+//     </div>
+            
+//     )
+// } */}
 
 
 

@@ -57,29 +57,67 @@ function Cart({}) {
     const total = cartItems.reduce((sum, item) => sum + item.price, 0);
 
     return (
+    <div className="cart-container">
+        {isLoggedIn ? (
         <div>
-            {isLoggedIn ? (
-                <div>
-                    <h2>Your Cart</h2>
-                    <ul>
-                        {cartItems.map((item) => (
-                            <li key={item.id}>
-                                {item.name} - ${item.price.toFixed(2)}
-                                <button onClick={() => removeFromCart(item.id)}>Remove</button>
-                            </li>
-                        ))}
-                    </ul>
-                    <p>Total: ${total.toFixed(2)}</p>
+            <h2>Your Cart</h2>
+            <ul>
+            {cartItems.map((item) => (
+                <li key={item.id} className="cart-item">
+                <div className="item-info">
+                    <img src={item.image} alt={item.name} className="item-image" />
+                    <div className="item-details">
+                    <p>{item.name}</p>
+                    <p>${item.price.toFixed(2)}</p>
                 </div>
-            ) : (
-                <p>Please log in to view your cart.</p>
-            )}
+                </div>
+                <div className="item-actions">
+                    <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                </div>
+                </li>
+            ))}
+            </ul>
+            <p className="total">Total: ${total.toFixed(2)}</p>
         </div>
+        ) : (
+        <p>Please log in to view your cart.</p>
+        )}
+    </div>
     );
 }
     
 
 export default Cart;
+
+
+
+
+
+
+
+
+
+
+
+
+        // <div>
+        //     {isLoggedIn ? (
+        //         <div>
+        //             <h2>Your Cart</h2>
+        //             <ul>
+        //                 {cartItems.map((item) => (
+        //                     <li key={item.id}>
+        //                         {item.name} - ${item.price.toFixed(2)}
+        //                         <button id='remove-cart' onClick={() => removeFromCart(item.id)}>Remove</button>
+        //                     </li>
+        //                 ))}
+        //             </ul>
+        //             <p>Total: ${total.toFixed(2)}</p>
+        //         </div>
+        //     ) : (
+        //         <p>Please log in to view your cart.</p>
+        //     )}
+        // </div>
 
 
 

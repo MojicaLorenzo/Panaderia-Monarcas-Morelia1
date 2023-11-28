@@ -10,6 +10,7 @@ import Customers from "./Customers";
 import CustomerDetails from "./CustomerDetails";
 import Cart from "./Cart";
 import Search from "./Search";
+import DetailedItems from "./DetailedItems";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export const darkMode = createContext("light")
@@ -113,6 +114,10 @@ function App() {
 
             <Route exact path="/items">
               <Items itemsArr={items}/>
+            </Route>
+
+            <Route exact path="/items/:id">
+              <DetailedItems/>
             </Route>
 
             <Route exact path="/cart">
