@@ -59,7 +59,6 @@ def check_session():
 #     if customer:
 #         resp = make_response( customer.to_dict(), 200)
 #         return resp
-    
 #     else:
 #         resp = make_response({}, 404)
 #         return resp
@@ -103,8 +102,6 @@ def logout():
 # ----------------------------------------
 # customer/user SESSION, LOGIN, AND LOGOUT ^^^^
 # ----------------------------------------
-
-
 
 
 @app.route('/items', methods = ['GET'])
@@ -389,7 +386,7 @@ def remove_from_cart(item_id):
     db.session.delete(cart_item)
     db.session.commit()
 
-    return jsonify({'message': 'Item removed from the cart successfully'}), 204
+    return make_response({'message': 'Item removed from the cart successfully'}), 204
 
 
 
