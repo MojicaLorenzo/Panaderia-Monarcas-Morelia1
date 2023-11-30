@@ -570,7 +570,7 @@ button {
 }
 
 button:hover {
-    background-color: #15501a;
+    background-color: #218838;
 }
 
 .need-account-text {
@@ -627,10 +627,10 @@ button:hover {
 }
 
 #showPasswrd {
-  background-color: #f77878;
+  background-color: #fa4c4c;
   color: #fff;
   padding: 8px 12px;
-  border: none;
+  border: 2px solid black;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
@@ -638,21 +638,21 @@ button:hover {
 }
 
 #showPasswrd:hover {
-  background-color: #fa4c4c;
+  background-color: #218838;
 }
 
 button#register {
-  background-color: #3498db;
+  background-color: #fa4c4c;
   color: #fff;
   padding: 12px;
-  border: none;
+  border: 2px solid black;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
 }
 
 button#register:hover {
-  background-color: #2980b9;
+  background-color: #218838;
 }
 
 .centered-content {
@@ -732,8 +732,37 @@ button#register:hover {
 
 #login-container {
   position: absolute;
+  top: 20%;
+  left: 5%
+}
+
+.overview-container {
+  text-align: center;
+  width: 700px;
+  position: absolute;
   top: 30%;
-  left: 42%
+  left: 30%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #ffffffa2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: solid red;
+}
+
+.overview-container:hover {
+  scale: 1.02;
+  box-shadow: 0 0 20px #9c0606
+}
+
+
+h1 {
+  color: #e43c26;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.6;
 }
 
 
