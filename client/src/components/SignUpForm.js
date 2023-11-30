@@ -62,7 +62,7 @@ function SignUpForm(){
         <div>
             <div className="signup-form" >
                 <div className="centered-content">
-                <h2 className="login">Register New Account!</h2>
+                <h2 className="login">Register New Account</h2>
                 <br/>
                     <form id="regform" name='form' onSubmit={handleRegister}>
                             Name:<input
