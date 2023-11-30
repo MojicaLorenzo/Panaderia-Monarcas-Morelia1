@@ -108,7 +108,7 @@ with app.app_context():
                 bakery_id= 1,
             ),
             Item(
-                name="Chocolate Dount",
+                name="Chocolate Donut",
                 type="Sweet",
                 description="Milk, Eggs, Sugar, Yeast, Butter, Chocolate, and Flour",
                 price=1,
