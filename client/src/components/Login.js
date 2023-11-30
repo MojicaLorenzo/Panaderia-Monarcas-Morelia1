@@ -29,6 +29,11 @@ function Login( { loggedIn } ) {
                         <Link to="/signup" ><button className="login-butt">Register New Account</button></Link>
                     </span>
                 </div>
+                <div class="overview-container">
+                    <h1>Panaderia Monarcas Morelia</h1>
+                    <p>Welcome to Panaderia Monarcas Morelia, explore our diverse selection of freshly baked goods, each crafted with care and authenticity. Whether you're a bread connoisseur or simply seeking a sweet treat, our online bakery has something for everyone. Create an account to unlock personalized features, manage your cart, and experience the convenience of online ordering. Join us on a journey where traditional baking meets modern technology, bringing the warmth of our bakery directly to your fingertips. Discover, indulge, and savor the flavors of Panaderia Monarcas Morelia.</p>
+                    <p>Your bakery adventure starts here.</p>
+                </div>
         </div>
     )
 }
