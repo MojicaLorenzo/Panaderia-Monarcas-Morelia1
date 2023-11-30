@@ -11,9 +11,13 @@ import CustomerDetails from "./CustomerDetails";
 import Cart from "./Cart";
 import Search from "./Search";
 import DetailedItems from "./DetailedItems";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { ThemeProvider } from './ThemeContext';
 
-export const darkMode = createContext("light")
+// export const darkMode = createContext("light")
+export const DarkModeContext = createContext({
+  theme: "light",
+  toggleTheme: () => {},
+});
 
 function App() {
 
@@ -59,25 +63,29 @@ function App() {
         // if (!customer) return <Login onLogin={setCustomer} loggedIn={loggedIn}/>
 
         const [theme, setTheme] = useState ("light")
-        function toggleTheme(){
-          setTheme(!theme)
-        }
+        // function toggleTheme(){
+        //   setTheme(!theme)
+        // }
+        
+        const toggleTheme = () => {
+          setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+        };
 
-        const location = useLocation();
-        const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+        // const location = useLocation();
+        // const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
 
   return (
-    <darkMode.Provider value={theme ? "light" : "dark"}>
-      
-      <div className="app" id={theme ? 'light' : 'dark'}>
+    // <DarkModeContext.Provider value={{ theme, toggleTheme }}>
+      // <div className="app" id={theme === 'light' ? 'light' : 'dark'}>\\
+      <ThemeProvider>
+        <div>
             <Link to="/homepage" >
             <img id="logo"  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Monarcas_Morelia_2.svg/1200px-Monarcas_Morelia_2.svg.png" alt="Logo" />
             </Link>
-            <button id="dark-mode-button" onClick={toggleTheme}>{theme ? 'dark' : 'light'} mode</button>
+
+            {/* <button id="dark-mode-button" onClick={toggleTheme}>{theme === 'light' ? 'dark' : 'light'} mode</button> */}
           <Switch onChange={toggleTheme}>
-
             
-
             <Route exact path="/homepage">
               <HomePage itemsArr={items} searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
             </Route>
@@ -88,12 +96,12 @@ function App() {
             </Route>
 
             <Route exact path='/signup'>
-              <SignUpForm/>
+              <SignUpForm setCustomer={setCustomer}/>
             </Route>
 
             <Route exact path='/loginform'>
               <LoginForm loggedIn={loggedIn} setLoggedIn={setLoggedIn} setCustomer={setCustomer}  
-                loggedInID={loggedInID} setLoggedInID={setLoggedInID} customer={customer}/>
+                loggedInID={loggedInID} setLoggedInID={setLoggedInID} customer={customer} />
             </Route>
 
             <Route exact path='/'>
@@ -101,7 +109,7 @@ function App() {
             </Route>
 
             <Route exact path='/account'>
-              <AccountForm customersArr={customers} setCustomersArr={setCustomers} loggedIn={loggedIn} />
+              <AccountForm customersArr={customers} setCustomersArr={setCustomers} loggedIn={loggedIn}/>
             </Route>
             
             <Route exact path='/customerdetails'>
@@ -124,10 +132,10 @@ function App() {
               <Cart/>
             </Route>
 
-          </Switch>
-          
-      </div>
-    </darkMode.Provider>
+          </Switch>  
+        </div>
+      </ThemeProvider>
+    // </DarkModeContext.Provider>
   )
 }
 

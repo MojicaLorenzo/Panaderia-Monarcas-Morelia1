@@ -3,12 +3,16 @@ import { NavLink } from "react-router-dom";
 import HomeItemDetails from "./HomeItemDetails";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Search from "./Search";
+import { DarkModeContext } from "./App";
+import { useTheme } from './ThemeContext';
 
 
 
 function HomePage({itemsArr, searchTerm, setSearchTerm}){
-    // console.log()
+    
     const [selectedType, setSelectedType] = useState("All");
+    const { theme, toggleTheme } = useTheme();
+
 
     const handleTypeChange = (type) => {
     setSelectedType(type);
@@ -42,13 +46,12 @@ const filteredArr = itemsArr.filter((searchItemObj) => {
     const uniqueTypes = [...new Set(itemsArr.map((item) => item.type))];
   uniqueTypes.unshift("All"); // Add "All" option to show all types
 
-
     return(
-        <>
-        <header className="main-title">
-            <img src="./images/testheader.png" alt="Panaderia Monarcas Morelia"/>
-        </header>
-
+        // <div id={theme === 'light' ? 'light' : 'dark'}>
+    // <div style={{"background-color": "black"}}>
+    <div className={theme === 'dark' ? 'dark' : 'light'}>
+        <header className="main-title"><img src="./images/testheader.png" alt="Panaderia Monarcas Morelia"/></header>
+        <button className="dark-mode-button" onClick={toggleTheme}>Toggle Theme</button>
             <div className="nav-bar">
                 <Search setSearchTerm={setSearchTerm} />
                     <div>
@@ -70,11 +73,7 @@ const filteredArr = itemsArr.filter((searchItemObj) => {
             <div id="home-items-container">
                 {mappedHomeItemsArr}
             </div>
-
-            {/* <footer>2023 Panaderia Monarcas Morelia. All Rights Reserved.</footer> */}
-        </>
-
-
+    </div>
     )
 }
 

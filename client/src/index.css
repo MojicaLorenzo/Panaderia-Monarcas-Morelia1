@@ -14,6 +14,7 @@
 
 }
 
+
 /* Style the links inside the navigation bar */
 
 /* .nav-bar a {
@@ -174,11 +175,11 @@ button:hover {
   right: 0px
 } */
 
-#dark-mode-button {
+.dark-mode-button {
   position: fixed;
   top: 20px;
-  left: 20px;
-  background-color: #ff3d3d;
+  right: 20px;
+  background-color: #df5959;
   color: #fff;
   border: none;
   padding: 10px;
@@ -188,7 +189,7 @@ button:hover {
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
 
-#dark-mode-button:hover {
+.dark-mode-button:hover {
   background-color: #218838;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
@@ -202,27 +203,64 @@ button:hover {
 
 }
 
-#dark{
+/* #dark{
   background-color: #282c34;
   height: 100%;
-}
+  margin: 0;
+  padding: 0; */
+  /* overflow: hidden; */
+  /* color: #ddd; */
+/* } */
 
-#light{
+/* #light{
   background-color: white;
-  height: 100%;
-}
-
-html,
-body,
-.app {
   height: 100%;
   margin: 0;
   padding: 0;
+} */
+ /* color:#000000; */
+
+.dark {
+  background-color: #282c34;
 }
 
-#root {
+.light {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.filler {
+  bottom: 0px;
+  float: bottom;
+  /* position: absolute; */
+}
+/* html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+} */
+
+body {
+  /* background-color: #282c34; */
+  /* height: 100%;
+  width: 100%; */
+  margin: 0;
+  padding: 0;
+}
+.filler {
   height: 100%;
 }
+
+/* .app {
+  height: 100%;
+  background-color: #007bff;
+  margin: 0;
+  padding: 0;
+} */
+
+/* #root {
+  height: 100%;
+} */
 
 footer {
   background-color: #f52828b7;
@@ -237,9 +275,9 @@ footer {
 #logo {
   height: 100px;
   float: right;
-  padding-top: 20px;
-  padding-right: 100px;
-  /* right: 100px; */
+  position: absolute;
+  top: 110px;
+  left: 130px
 }
 
 #more-info-button {
@@ -317,10 +355,6 @@ footer {
 
 
 /* ------------------------------NAVBAR--------------------------------------- */
-/* Filter Styles */
-/* Filter Styles */
-/* Filter Styles */
-
 
 .nav-bar {
   display: flex;
@@ -394,8 +428,15 @@ footer {
 /* ------------------------------CART-PAGE--------------------------------------- */
 
 .cart-container {
+  position: absolute;
   margin: 20px;
-  width: 700px;
+  /* width: 700px; */
+  top: 150px;
+  left: 300px;
+  background-color: whitesmoke ;
+  border-radius: 3px;
+  padding: 15px;
+  
 }
 
 .cart-item {
@@ -444,8 +485,6 @@ footer {
   margin-top: 10px;
 }
 
-
-
 .detailed-item-container {
   width: 1000px;
   position: absolute;
@@ -469,104 +508,227 @@ footer {
   max-height: 400px; /* Set a maximum height for the image */
   object-fit: cover;
   border-radius: 8px;
-
 }
 
 
 
+/* ------------------------------Login-Form--------------------------------------- */
 
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
+.login-form {
+    background-color: rgba(233, 233, 233, 0.836);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    top: 30%;
+    left: 40%
+}
 
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #494949;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* input[type="checkbox"] {
-	height: 0;
-	width: 0;
-	visibility: hidden;
+.form-group {
+    margin-bottom: 20px;
 }
 
 label {
-	cursor: pointer;
-	text-indent: -9999px;
-	width: 25px;
-	height: 10px;
-	display: block;
-	border-radius: 24.125em;
-	position: relative;
-
-	background: blue;
-	box-shadow: inset -6.5em 6.5em 1.5em -3em #6863ae,
-		inset 1.5em -1.5em 2.5em #e6defe, -1em 1em 0.5em 0 #ccc7e4,
-		-0.4em 0.2em 1em 0 #aaa4d5, 0.4em -0.2em 1em 0 #726ca4;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
-label:after {
-	content: "";
-	position: absolute;
-	top: 15px;
-	left: 15px;
-	width: 23.25em;
-	height: 23.25em;
-	background: #000;
-	border-radius: 100%;
-	transition: 1s cubic-bezier(0.25, 1, 0.5, 1);
-
-	background-image: url(https://www.sharetextures.com/wp-content/uploads/2018/09/PBR-concrete_white-ao-.jpg);
-	background-size: 150%;
-	background-position: 50% 50%;
-	filter: drop-shadow(-1em 1em 0.5em #6863ae);
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
-label:before {
-	z-index: 1;
-	content: "";
-	position: absolute;
-	top: 0.4375em;
-	left: 0.4375em;
-	width: 23.25em;
-	height: 23.25em;
-	border-radius: 100%;
-	transition: 1s cubic-bezier(0.25, 1, 0.5, 1);
-
-	background: radial-gradient(circle at 70% 35%, #ddd2 20%, #000d);
-	filter: blur(1em);
+button {
+    background-color: #db3f34;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-input:checked + label {
+button:hover {
+    background-color: #15501a;
 }
 
-input:checked + label:after,
-input:checked + label:before {
-	left: calc(100% - 0.4375em);
-	transform: translateX(-100%);
+.need-account-text {
+    text-align: center;
+    margin-top: 20px;
 }
 
-input:checked + label:after {
-	background-position: -100% 50%;
-	filter: drop-shadow(-5em 1.5em 0.5em #6863ae);
-} */
+.need-account-text a {
+    color: #2b97aa;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.need-account-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* ------------------------------Signup-Form--------------------------------------- */
+
+
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.signup-form {
+  background-color: rgba(233, 233, 233, 0.836);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.signup-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #494949;
+}
+
+.reginput {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+#showPasswrd {
+  background-color: #f77878;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+#showPasswrd:hover {
+  background-color: #fa4c4c;
+}
+
+button#register {
+  background-color: #3498db;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button#register:hover {
+  background-color: #2980b9;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------------Account-Form--------------------------------------- */
+
+
+.account-edit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.account-edit-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.account-edit-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #3498db;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.edit-button {
+  background-color: #d14e4e;
+  color: #fff;
+  padding: 12px;
+  border: solid black;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+  transform: scale(1.02); 
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#cart-empty {
+
+  color: red
+}
 
 
 
@@ -577,29 +739,3 @@ input:checked + label:after {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-
-SEARCH ICON 
-<i class="fa fa-search" aria-hidden="true"></i>
-
-*/

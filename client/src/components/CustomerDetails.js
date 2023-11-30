@@ -41,10 +41,8 @@ function CustomerDetails({name, username, email, customersArr, setCustomersArr, 
     //             return originalCustomer
     //         }
     //         })
-
     //         // update parent state
     //         setCustomersArr(updatedCustomers)
-
     //         // hide / reset form
     //         // e.target.reset() // moot
     //         setShowForm(!showForm)

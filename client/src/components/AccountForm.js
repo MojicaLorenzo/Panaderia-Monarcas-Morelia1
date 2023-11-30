@@ -24,7 +24,7 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
             .then(setCustomerData)
     }, [])
 
-    console.log(customerData.id)
+    // console.log(customerData.id)
 
     const updateInfo = async (e) => {
         e.preventDefault()
@@ -130,11 +130,11 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
                         value={newData.password}
                         onChange={handleChange}
                     />
-                    <button className="login" type='button' id="showPasswrd" onClick={() => setShowPassword(!showPassword)}>show password</button>
+                    <button className="edit-button" type='button'  onClick={() => setShowPassword(!showPassword)}>show password</button>
                     
-                    <button className="login" id="register" type="submit" name="Register" value="submit" >Submit edit</button>
-                    <button className="login" id="deleteAccount" type="button" onClick={handleDelete}>Delete Account</button>
-                    <button className="login" id="logout" type="button" onClick={handleLogout}>Logout</button>
+                    <button className="edit-button"  type="submit" name="Register" value="submit" >Submit edit</button>
+                    <button className="edit-button" id="deleteAccount" type="button" onClick={handleDelete}>Delete Account</button>
+                    <button className="edit-button" id="logout" type="button" onClick={handleLogout}>Logout</button>
                 </form>
             </div>
             

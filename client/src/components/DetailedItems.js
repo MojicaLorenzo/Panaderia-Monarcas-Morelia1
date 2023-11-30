@@ -31,7 +31,6 @@ return (
         <h2>{item.name}</h2>
         <p className="item-description">{item.description}</p>
         <p className="item-price">Price: ${item.price.toFixed(2)}</p>
-        {/* Add other item details as needed */}
         </div>
         
     </div>
@@ -40,12 +39,3 @@ return (
 }
 
 export default DetailedItem;
-
-
-
-
-        // <div>
-        //     <h2>{item.name}</h2>
-        //     <p>{item.description}</p>
-        //     <p>Price: ${item.price.toFixed(2)}</p>
-        // </div>

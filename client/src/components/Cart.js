@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useTheme } from './ThemeContext';
 
 function Cart({}) {
     const [cartItems, setCartItems] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { theme, toggleTheme } = useTheme();
+
 
     const fetchCartItems = async () => {
         try {
@@ -14,7 +17,6 @@ function Cart({}) {
             console.error('Error fetching cart items:', error);
         }
     };
-    // console.log(cartItems)
 
     const removeFromCart = async (id) => {
     try {
@@ -57,162 +59,38 @@ function Cart({}) {
     const total = cartItems.reduce((sum, item) => sum + item.price, 0);
 
     return (
-    <div className="cart-container">
-        {isLoggedIn ? (
-        <div>
-            <h2>Your Cart</h2>
-            <ul>
-            {cartItems.map((item) => (
-                <li key={item.id} className="cart-item">
-                <div className="item-info">
-                    <img src={item.image} alt={item.name} className="item-image" />
-                    <div className="item-details">
-                    <p>{item.name}</p>
-                    <p>${item.price.toFixed(2)}</p>
+        <div className={theme === 'dark' ? 'dark' : 'light'}>
+            <button className="dark-mode-button" onClick={toggleTheme}>Toggle Theme</button>
+            <div className="cart-container">
+                {isLoggedIn ? (
+                <div>
+                    <h2>Your Cart</h2>
+                    <ul>
+                    {cartItems.map((item) => (
+                        <li key={item.id} className="cart-item">
+                        <div className="item-info">
+                            <img src={item.image} alt={item.name} className="item-image" />
+                            <div className="item-details">
+                            <p>{item.name}</p>
+                            <p>${item.price.toFixed(2)}</p>
+                        </div>
+                        </div>
+                        <div className="item-actions">
+                            <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                        </div>
+                        </li>
+                    ))}
+                    </ul>
+                    <p className="total">Total: ${total.toFixed(2)}</p>
+                    <button>Place order</button>
                 </div>
-                </div>
-                <div className="item-actions">
-                    <button onClick={() => removeFromCart(item.id)}>Remove</button>
-                </div>
-                </li>
-            ))}
-            </ul>
-            <p className="total">Total: ${total.toFixed(2)}</p>
+                ) : (
+                <h2 id='cart-empty'>Please log in to view your cart.</h2>
+                )}
+            </div>
         </div>
-        ) : (
-        <p>Please log in to view your cart.</p>
-        )}
-    </div>
     );
 }
     
 
 export default Cart;
-
-
-
-
-
-
-
-
-
-
-
-
-        // <div>
-        //     {isLoggedIn ? (
-        //         <div>
-        //             <h2>Your Cart</h2>
-        //             <ul>
-        //                 {cartItems.map((item) => (
-        //                     <li key={item.id}>
-        //                         {item.name} - ${item.price.toFixed(2)}
-        //                         <button id='remove-cart' onClick={() => removeFromCart(item.id)}>Remove</button>
-        //                     </li>
-        //                 ))}
-        //             </ul>
-        //             <p>Total: ${total.toFixed(2)}</p>
-        //         </div>
-        //     ) : (
-        //         <p>Please log in to view your cart.</p>
-        //     )}
-        // </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     const [cartItems, setCartItems] = useState([]);
-//     const [addItemId, setAddItemId] = useState('');
-//     const [removeItemId, setRemoveItemId] = useState('');
-
-//     const fetchCartItems = async () => {
-//         try {
-//             const response = await fetch('/cart');
-//             const data = await response.json();
-//             setCartItems(data);
-//         } catch (error) {
-//             console.error('Error fetching cart items:', error);
-//         }
-//     };
-
-//     const addToCart = async () => {
-//         try {
-//             await fetch('/cart/add', {
-//             method: 'POST',
-//             headers: {
-//             'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({ item_id: addItemId }),
-//         });
-//           // Optionally, you can fetch the updated cart items after adding
-//             fetchCartItems();
-//         } catch (error) {
-//             console.error('Error adding item to cart:', error);
-//         }
-//     };
-
-//     const removeFromCart = async () => {
-//         try {
-//             await fetch(`/cart/remove/${removeItemId}`, {
-//             method: 'DELETE',
-//         });
-//           // Optionally, you can fetch the updated cart items after removing
-//             fetchCartItems();
-//         } catch (error) {
-//             console.error('Error removing item from cart:', error);
-//         }
-//     };
-
-//     useEffect(() => {
-//         // Fetch initial cart items when the component mounts
-//         fetchCartItems();
-//     }, []);
-    
-//     return (
-//         <div>
-//             <h2>Your Cart</h2>
-//             <ul>
-//             {cartItems.map((item) => (
-//                 <li key={item.id}>{item.name}</li>
-//             ))}
-//             </ul>
-//         <div>
-//             <input
-//                 type="text"
-//                 placeholder="Item ID to Add"
-//                 value={addItemId}
-//                 onChange={(e) => setAddItemId(e.target.value)}
-//             />
-//             <button onClick={addToCart}>Add to Cart</button>
-//         </div>
-//         <div>
-//             <input
-//                 type="text"
-//                 placeholder="Item ID to Remove"
-//                 value={removeItemId}
-//                 onChange={(e) => setRemoveItemId(e.target.value)}
-//             />
-//             <button onClick={removeFromCart}>Remove from Cart</button>
-//         </div>
-//         </div>
-//         );
-//     };
