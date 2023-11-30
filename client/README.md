@@ -1,70 +1,79 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Panaderia Monarcas Morelia
 
-## Available Scripts
+Panaderia Monarcas Morelia is your go-to destination for a delightful online bakery experience. Browse through an assortment of freshly baked goods, create an account to unlock personalized features, and enjoy the convenience of managing your cart. My full-stack project integrates the charm of traditional baking with modern technology, offering a seamless journey from exploration to account management. The project is built using React for the frontend and a Python-based Flask server for the backend. The application utilizes a database to store user information, bakery item details, and more.
 
-In the project directory, you can run:
+Key Features:
 
-### `npm start`
+Browse Bread Options: Customers can view a diverse range of bakery items, each displaying essential details such as price, ingredients, and more.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+User Authentication: Users can create an account, log in, and enjoy a personalized experience. Authentication ensures a secure environment for managing their preferences and orders.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Account Management:
 
-### `npm test`
+Edit Profile: Users can update their account information, such as name, username, and email.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Delete Account: For users who wish to discontinue their account, a feature is available to delete their profile.
 
-### `npm run build`
+Shopping Cart: When logged in, users are assigned a shopping cart, allowing them to add and remove items. Although order placement is not fully implemented yet, it is a future goal.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Dark Mode Toggle: The website provides a visually comfortable experience with a Dark Mode toggle, giving users control over their preferred theme.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Technologies Used
+Frontend: React.js
+Backend: Flask (Python)
+Database: SQL
+Project Structure
+The project is organized into different components, each serving a specific purpose. Here's a brief overview:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Frontend: The src folder contains React components, pages, and stylesheets. Key components include:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+HomePage: Displays bakery items.
+LoginForm and SignUpForm: Handle user authentication.
+AccountForm: Manages user profile information.
+Cart: Allows users to add and remove items from the shopping cart.
+Backend: The app.py file contains the Flask application, which handles routes, user authentication, and interactions with the database.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Database: The database schema and models are defined to store essential information such as user details, bakery items, and shopping carts.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Installation
+Clone the repository:
 
-## Learn More
+git clone https://github.com/your-username/panaderia-monarcas-morelia.git
+Install frontend dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+cd panaderia-monarcas-morelia
+npm install
+Install backend dependencies:
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+cd backend
+pip install -r requirements.txt
+Set up the database:
 
-### Analyzing the Bundle Size
+Start the frontend and backend:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Frontend
+npm start
 
-### Making a Progressive Web App
+# Backend
+python app.py
+Open your browser and navigate to http://localhost:3000 to view the website.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Usage
+Visit the website and explore the delightful bakery options.
+Create an account or log in to access personalized features.
+Edit your profile information or delete your account if needed.
+Use the shopping cart to add and remove items (order placement feature coming soon).
+Enjoy a visually comfortable experience with the Dark Mode toggle.
+Contributing
+Contributions are welcome! If you would like to contribute to this project, please follow these guidelines:
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Fork the repository.
+Create a new branch for your feature or bug fix.
+Commit your changes with descriptive commit messages.
+Push your changes to your fork.
+Open a pull request.

@@ -10,7 +10,7 @@
   border-radius: 10px;
   width: 1150px;
   position: relative;
-  left: 375px
+  left: 365px
 
 }
 
@@ -276,7 +276,7 @@ footer {
   height: 100px;
   float: right;
   position: absolute;
-  top: 110px;
+  top: 47px;
   left: 130px
 }
 
@@ -728,6 +728,12 @@ button#register:hover {
 #cart-empty {
 
   color: red
+}
+
+#login-container {
+  position: absolute;
+  top: 30%;
+  left: 42%
 }
 
 

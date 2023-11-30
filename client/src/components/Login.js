@@ -19,11 +19,10 @@ function Login( { loggedIn } ) {
 
     return(
         <div className={theme === 'dark' ? 'dark' : 'light'}>
-
-                <div id='login-container'>
-                    <header className="main-title">
+                <header className="main-title">
                         <img src="./images/testheader.png" alt="Panaderia Monarcas Morelia"/>
-                    </header> 
+                </header> 
+                <div id='login-container'>
                     <button className="dark-mode-button" onClick={toggleTheme}>Toggle Theme</button>
                     <span>
                         <Link customers={customers}  to="/loginform"><button className="login-butt" >Login</button></Link>

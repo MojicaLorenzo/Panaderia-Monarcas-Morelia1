@@ -47,8 +47,6 @@ const filteredArr = itemsArr.filter((searchItemObj) => {
   uniqueTypes.unshift("All"); // Add "All" option to show all types
 
     return(
-        // <div id={theme === 'light' ? 'light' : 'dark'}>
-    // <div style={{"background-color": "black"}}>
     <div className={theme === 'dark' ? 'dark' : 'light'}>
         <header className="main-title"><img src="./images/testheader.png" alt="Panaderia Monarcas Morelia"/></header>
         <button className="dark-mode-button" onClick={toggleTheme}>Toggle Theme</button>
@@ -77,7 +75,10 @@ const filteredArr = itemsArr.filter((searchItemObj) => {
     )
 }
 
-export default HomePage 
+export default HomePage  
+
+    // <div id={theme === 'light' ? 'light' : 'dark'}>
+    // <div style={{"background-color": "black"}}>
 
 
 // above nalink account

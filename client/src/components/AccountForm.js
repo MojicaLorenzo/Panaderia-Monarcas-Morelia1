@@ -37,7 +37,6 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
                     changedFields[key] = newData[key];
                 }
             }
-            console.log("here")
             const response = await fetch(`customers/${customerData.id}`, {
                 method: 'PATCH',
                 headers: {
