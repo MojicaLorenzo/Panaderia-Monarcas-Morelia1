@@ -189,9 +189,7 @@ def customers():
             new_customer = Customer(
                 name = form_data['name'],
                 username = username,
-                email = form_data['email'],     
-                # _password_hash = form_data['password'],
-                # comment out this password
+                email = form_data['email'],
             )
             # uncomment this password
             new_customer.password_hash = password

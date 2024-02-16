@@ -75,15 +75,11 @@ function App() {
         // const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
 
   return (
-    // <DarkModeContext.Provider value={{ theme, toggleTheme }}>
-      // <div className="app" id={theme === 'light' ? 'light' : 'dark'}>\\
       <ThemeProvider>
         <div>
             <Link to="/homepage" >
             <img id="logo"  src="https://upload.wikimedia.org/wikipedia/en/thumb/2/27/Monarcas_Morelia_2.svg/1200px-Monarcas_Morelia_2.svg.png" alt="Logo" />
             </Link>
-
-            {/* <button id="dark-mode-button" onClick={toggleTheme}>{theme === 'light' ? 'dark' : 'light'} mode</button> */}
           <Switch onChange={toggleTheme}>
             
             <Route exact path="/homepage">
@@ -135,7 +131,6 @@ function App() {
           </Switch>  
         </div>
       </ThemeProvider>
-    // </DarkModeContext.Provider>
   )
 }
 

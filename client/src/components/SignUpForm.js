@@ -43,7 +43,6 @@ function SignUpForm(){
                 e.target.username.value = ""
                 e.target.email.value = ""
                 e.target.password.value = ""
-                // You can reset the form or perform other actions here
                 setShowPassword(false);
                 history.push("/")
                 alert(`Welcome, happy to have you ${newCustomer.name}`)

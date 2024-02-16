@@ -6,10 +6,9 @@ function DetailedItem() {
     const [item, setItem] = useState(null);
 
     useEffect(() => {
-    // Fetch item details based on the ID when the component mounts
     const fetchItemDetails = async () => {
         try {
-        const response = await fetch(`/items/${id}`); // Replace with your API endpoint
+        const response = await fetch(`/items/${id}`);
         const data = await response.json();
         setItem(data);
     } catch (error) {
