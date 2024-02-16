@@ -44,7 +44,7 @@ const filteredArr = itemsArr.filter((searchItemObj) => {
     })
 
     const uniqueTypes = [...new Set(itemsArr.map((item) => item.type))];
-  uniqueTypes.unshift("All"); // Add "All" option to show all types
+        uniqueTypes.unshift("All")
 
     return(
     <div className={theme === 'dark' ? 'dark' : 'light'}>

@@ -20,12 +20,9 @@ function Cart({}) {
 
     const removeFromCart = async (id) => {
     try {
-        // Assuming you have an item ID, make a DELETE request to remove the item from the cart
         await fetch(`/cart/remove/${id}`, {
             method: "DELETE",
         });
-
-        // Update the local state to reflect the change
         setCartItems((prevCartItems) => prevCartItems.filter(item => item.id !== id));
         console.log("item removed successfully");
     } catch (error) {
@@ -41,7 +38,6 @@ function Cart({}) {
                 if (response.status === 200) {
                     // User is logged in
                     setIsLoggedIn(true);
-                    // Fetch cart items for the logged-in user
                     fetchCartItems();
                 } else {
                     // User is not logged in
@@ -52,7 +48,6 @@ function Cart({}) {
             }
         };
 
-        // Check login status when the component mounts
         checkLoginStatus();
     }, []);
 

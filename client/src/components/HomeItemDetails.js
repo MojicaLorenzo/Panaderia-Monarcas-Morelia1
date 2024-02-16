@@ -5,10 +5,15 @@ import { Switch, Route, BrowserRouter, Link} from "react-router-dom";
 function HomeItemDetails({name, type, price, image, id, description}) {
 
     const [inCart, setInCart] = useState(false)
+    const [quantity, setQuantity] = useState(1)
+
+    const handleQuantityChange = (e) => {
+        const newQuantity = parseInt(e.target.value, 10);
+        setQuantity(newQuantity);
+    }
 
     const addToCart = async () => {
         try {
-          // Assuming you have an item ID, make a POST request to add the item to the cart
             await fetch("/cart/add", {
             method: "POST",
             headers: {
@@ -16,7 +21,6 @@ function HomeItemDetails({name, type, price, image, id, description}) {
             },
             body: JSON.stringify({ item_id: id }),
         });
-          // Update the local state to reflect the change
         setInCart(true);
             console.log("added item successfully")
         } catch (error) {
@@ -26,12 +30,9 @@ function HomeItemDetails({name, type, price, image, id, description}) {
 
     const removeFromCart = async () => {
         try {
-          // Assuming you have an item ID, make a DELETE request to remove the item from the cart
             await fetch(`/cart/remove/${id}`, {
             method: "DELETE",
         });
-    
-          // Update the local state to reflect the change
         setInCart(false);
             console.log("item removed successfully")
         } catch (error) {

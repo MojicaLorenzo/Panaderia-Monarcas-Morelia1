@@ -30,8 +30,6 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
         e.preventDefault()
         try {
             const changedFields = {};
-
-            // Compare each field in newData with custData and add changed ones to changedFields
             for (const key in newData) {
                 if (newData[key] !== customerData[key]) {
                     changedFields[key] = newData[key];
@@ -47,12 +45,9 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
             // console.log("here")
 
             if (response.ok) {
-                // // ReFetch Updated Data
                 fetch(`customers/${customerData.id}`)
                     .then((resp) => resp.json())
                     .then(setCustomerData);
-                // Switch back to view mode after updating
-                // setMakeChanges(true); 
                 console.log("Account edit successful !")
                 alert("Update successful!")
                 history.push("/homepage")
@@ -73,7 +68,6 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
             if (response.ok) {
             console.log("Customer deleted successfully!");
             alert("Account deleted successfully!");
-            // setLoggedIn(false);
             history.push("/");
         } else {
             console.error("Failed to delete customer");
@@ -91,7 +85,6 @@ function AccountForm({ loggedInID, setLoggedIn, loggedIn}) {
             });
             if (response.ok) {
             console.log("Logout successful!");
-            // setLoggedIn(false);
             alert("Logout successful!")
             history.push("/");
         } else {

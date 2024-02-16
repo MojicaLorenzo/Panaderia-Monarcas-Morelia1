@@ -7,7 +7,7 @@ from sqlalchemy import MetaData
 from sqlalchemy.ext.hybrid import hybrid_property
 from config import bcrypt, db
 
-# Models go here!
+
 
 class Item (db.Model, SerializerMixin):
     __tablename__ = "items"
@@ -147,6 +147,7 @@ class Cart_item (db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     cart_id = db.Column(db.Integer, db.ForeignKey('carts.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+    # quantity = db.Column(db.Integer, default = 1)
 
     #----------------------relationships---------------------------------
     cart = db.relationship('Cart', back_populates = 'cart_items')
